@@ -1,0 +1,21 @@
+{
+  "hash": "3c9437e5a5c54895078e2d19d658e84b",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Nutrients {#sec-nutrients}  \n\n\n::: {.cell}\n\n:::\n\n\n\nMay want to split this into N and P; there are different species of each and that might be a lot for one chapter.  \n\n## Overall Summary  \n\n**Note: These summaries are NOT factual.** They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.    \n\n\ne.g. \"Nitrogen and phosphorus concentrations were higher than normal, and this was more pronounced in the Eastern Sound than the rest of the area. This coincides with extreme Bonnet Carre inputs.\"  \n\n\n## Supporting Information  \n\n\n### DEQ Beach Sampling  \n\n\n\n### DEQ Freshwater Programs  \n\n\n\n### Mississippi Coastal Assessment  \n\n\n\n### Other data in the area  \n\nGrand Bay SWMP  \n\n\n\n\n## About {.unnumbered}   \n\n**The `.qmd` file** that generated this section was: **nutrients.qmd**. \n\nFor information on data sources and processing, see *appendix cross-reference here*.",
+    "supporting": [
+      "nutrients_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}

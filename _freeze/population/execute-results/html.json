@@ -1,0 +1,15 @@
+{
+  "hash": "0b45819131124ddb0a748bdcb457d9af",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Population {#sec-population}  \n\n\n::: {.cell}\n\n:::\n\n\n\n## Overall Summary  \n\n**Note: These summaries are NOT factual.** They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.    \n\n\ne.g. \"Population has been steady in the watershed for the last 10 years\"  \n\n\n## Supporting Information  \n\nSee population calculations in the [msep_geospatialCharacterization repository](https://github.com/CMEP-MS/msep_geospatialCharacterization), and repeat them for current year vs. 5, 10, 20 years ago.  \n\n\n## About {.unnumbered}   \n\n**The `.qmd` file** that generated this section was: **population.qmd**. \n\nFor information on data sources and processing, see *appendix cross-reference here*.",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

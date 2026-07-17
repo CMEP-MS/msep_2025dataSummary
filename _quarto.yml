@@ -9,6 +9,8 @@ execute:
   freeze: auto
   cache: false
   enabled: true
+  
+engine: knitr
 
 book:
   title: "MSEP Area 2025 Data Summaries"

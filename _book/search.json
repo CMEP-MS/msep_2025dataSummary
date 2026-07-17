@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "MSEP Area 2025 Data Summaries",
     "section": "",
-    "text": "Introduction\nThis website is a collection of documents summarizing the condition of the Mississippi Sound and its watershed in 2025, as compared to “baseline” conditions (which we also need to define, at appropriate spatial scales for each parameter). The outputs are compiled as a ‘quarto book’. Each chapter is produced by a separate .qmd file.\nThe purpose of the book format is to make the outputs readily findable and accessible. It also serves as an outline for future undertakings like a complete baseline characterization of these parameters and future State of the Sound reports.\nYou can download a pdf version of this entire book by clicking on the pdf icon on the right side of the toolbar at the top of this page.",
+    "text": "Introduction\nThis website is a collection of documents summarizing the condition of the Mississippi Sound and its watershed in 2025, as compared to “baseline” conditions (which we also need to define, at appropriate spatial scales for each parameter). This will be the technical supporting information for what ultimately goes into a State of the Sound report. The State of the Sound will be public-facing, whereas the intended audience for this document is largely technical.\nThe outputs are compiled as a ‘quarto book’. Each chapter is produced by a separate .qmd file.\nThe purpose of the book format is to make the outputs readily findable and accessible. It also serves as an outline for future undertakings like a complete baseline characterization of these parameters and future State of the Sound reports.\nYou can download a pdf version of this entire book by clicking on the pdf icon on the right side of the toolbar at the top of this page.",
     "crumbs": [
       "Introduction"
     ]
@@ -36,7 +36,7 @@
     "href": "precipitation.html#about",
     "title": "1  Precipitation",
     "section": "About",
-    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "text": "About\nThe .qmd file that generated this section was: precipitation.qmd.\nFor information on data sources and processing, see appendix cross-reference here.",
     "crumbs": [
       "Weather and Climate-related variables",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Precipitation</span>"
@@ -69,7 +69,7 @@
     "href": "freshwater_inflows.html#about",
     "title": "2  Freshwater Inflows",
     "section": "About",
-    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "text": "About\nThe .qmd file that generated this section was: freshwater_inflows.qmd.\nFor information on data sources and processing, see appendix cross-reference here.",
     "crumbs": [
       "Weather and Climate-related variables",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Freshwater Inflows</span>"
@@ -102,7 +102,7 @@
     "href": "population.html#about",
     "title": "3  Population",
     "section": "About",
-    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "text": "About\nThe .qmd file that generated this section was: population.qmd.\nFor information on data sources and processing, see appendix cross-reference here.",
     "crumbs": [
       "People and Land Use",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Population</span>"
@@ -135,7 +135,7 @@
     "href": "landuse_landcover.html#about",
     "title": "4  Land Use / Land Cover",
     "section": "About",
-    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "text": "About\nThe .qmd file that generated this section was: landuse_landcover.qmd.\nFor information on data sources and processing, see appendix cross-reference here.",
     "crumbs": [
       "People and Land Use",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Land Use / Land Cover</span>"
@@ -168,7 +168,7 @@
     "href": "salinity.html#about",
     "title": "5  Salinity",
     "section": "About",
-    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "text": "About\nThe .qmd file that generated this section was: salinity.qmd.\nFor information on data sources and processing, see appendix cross-reference here.",
     "crumbs": [
       "Water Conditions",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Salinity</span>"
@@ -201,7 +201,7 @@
     "href": "dissolved_oxygen.html#about",
     "title": "6  Dissolved Oxygen",
     "section": "About",
-    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "text": "About\nThe .qmd file that generated this section was: dissolved_oxygen.qmd.\nFor information on data sources and processing, see appendix cross-reference here.",
     "crumbs": [
       "Water Conditions",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Dissolved Oxygen</span>"
@@ -234,7 +234,7 @@
     "href": "turb_tss.html#about",
     "title": "7  Turbidity / Suspended Solids",
     "section": "About",
-    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "text": "About\nThe .qmd file that generated this section was: turb_tss.qmd.\nFor information on data sources and processing, see appendix cross-reference here.",
     "crumbs": [
       "Water Conditions",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Turbidity / Suspended Solids</span>"
@@ -267,7 +267,7 @@
     "href": "nutrients.html#about",
     "title": "8  Nutrients",
     "section": "About",
-    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "text": "About\nThe .qmd file that generated this section was: nutrients.qmd.\nFor information on data sources and processing, see appendix cross-reference here.",
     "crumbs": [
       "Water Conditions",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Nutrients</span>"
@@ -300,7 +300,7 @@
     "href": "chla.html#about",
     "title": "9  Chlorophyll a",
     "section": "About",
-    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "text": "About\nThe .qmd file that generated this section was: chla.qmd.\nFor information on data sources and processing, see appendix cross-reference here.",
     "crumbs": [
       "Water Conditions",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Chlorophyll *a*</span>"
@@ -333,7 +333,7 @@
     "href": "beach_advisories.html#about",
     "title": "10  Beach Advisories",
     "section": "About",
-    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "text": "About\nThe .qmd file that generated this section was: beach_advisories.qmd.\nFor information on data sources and processing, see appendix cross-reference here.",
     "crumbs": [
       "Pollutants/Contaminants",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Beach Advisories</span>"
@@ -366,7 +366,7 @@
     "href": "shellfish_closures.html#about",
     "title": "11  Shellfish Closures",
     "section": "About",
-    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "text": "About\nThe .qmd file that generated this section was: shellfish_closures.qmd.\nFor information on data sources and processing, see appendix cross-reference here.",
     "crumbs": [
       "Pollutants/Contaminants",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Shellfish Closures</span>"
@@ -399,7 +399,7 @@
     "href": "impaired_waterbodies.html#about",
     "title": "12  Impaired Waterbodies",
     "section": "About",
-    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "text": "About\nThe .qmd file that generated this section was: impaired_waterbodies.qmd.\nFor information on data sources and processing, see appendix cross-reference here.",
     "crumbs": [
       "Pollutants/Contaminants",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>Impaired Waterbodies</span>"

@@ -1,5 +1,10 @@
 # Precipitation {#sec-precipitation}  
 
+```{r}
+
+```
+
+
 From my brainstorming:
 
 Precipitation (annual total, but also seasonal amounts - seasonality could be weird and still yield normal totals)  Can have maps of actual data and summary tables of anomalies  

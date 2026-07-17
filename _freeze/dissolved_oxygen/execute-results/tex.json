@@ -1,0 +1,21 @@
+{
+  "hash": "853dec8314a1e1b7d29d708cf562d694",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Dissolved Oxygen {#sec-dissolvedoxygen}  \n\n\n::: {.cell}\n\n:::\n\n\n\n## Overall Summary  \n\n**Note: These summaries are NOT factual.** They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.    \n\n\ne.g. \"Hypoxia was more (or less) prevalent than usual in the eastern Sound and its bays, and about normal elsewhere along the coast. In freshwater streams and rivers, hypoxia was about normal.\"   \n\n\n## Supporting Information  \n\n### DEQ data  \n\nInland sampling network programs  \n\n### Deployed Sensors  \n\nUSGS/DMR hydrological stations, DMR sensor network, USM-GCRL stations (in the future), Grand Bay NERR SWMP stations  \n\n\n### DMR fisheries and shrimp sampling  \n\n\n\n### Mississippi Coastal Assessment  \n\n\n\n### Other salinity data in the area  \n\n\n\n\n## About {.unnumbered}   \n\n**The `.qmd` file** that generated this section was: **dissolved_oxygen.qmd**. \n\nFor information on data sources and processing, see *appendix cross-reference here*.",
+    "supporting": [
+      "dissolved_oxygen_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}

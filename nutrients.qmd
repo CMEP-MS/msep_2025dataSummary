@@ -1,5 +1,10 @@
 # Nutrients {#sec-nutrients}  
 
+```{r}
+
+```
+
+
 May want to split this into N and P; there are different species of each and that might be a lot for one chapter.  
 
 ## Overall Summary  

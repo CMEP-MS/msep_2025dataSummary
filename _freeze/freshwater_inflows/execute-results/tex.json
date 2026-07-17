@@ -1,0 +1,21 @@
+{
+  "hash": "75a0ee301536f382c802236c5d176156",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Freshwater Inflows {#sec-fwinflows}  \n\n\n::: {.cell}\n\n:::\n\n\n\n## Overall Summary  \n\n**Note: These summaries are NOT factual.** They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.    \n\n\ne.g. \"River inputs were about average this year\", or \"Pearl River inputs were higher than normal, while Pascagoula River inputs were lower than normal\", or \"Flows from both main rivers were higher than normal this year, and the Bonnet Carre spillway was open for a substantial amount of time, causing XYZ impacts\".  \n\n\n## Supporting Information  \n\n### Rivers  \n\nPearl and Pascagoula River USGS gauges  \n\n\n### Mobile Bay  \n\n?? certainly affects the Eastern Sound, even if exact amount is in question (estimates vary; I have some references if we want to talk about this)  so probably worth noting.  \n\n\n### Bonnet Carre  \n\n\n-  number of openings\n-  number of days open\n-  Volume released\n\n\n\n## About {.unnumbered}   \n\n**The `.qmd` file** that generated this section was: **freshwater_inflows.qmd**. \n\nFor information on data sources and processing, see *appendix cross-reference here*.",
+    "supporting": [
+      "freshwater_inflows_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}

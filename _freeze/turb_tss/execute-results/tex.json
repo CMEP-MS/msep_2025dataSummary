@@ -1,0 +1,21 @@
+{
+  "hash": "04d320df439acdd22afec32293742905",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Turbidity / Suspended Solids {#sec-turbtss}  \n\n\n::: {.cell}\n\n:::\n\n\n\n## Overall Summary  \n\n**Note: These summaries are NOT factual.** They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.    \n\n\ne.g. \"Turbidity was lower than normal (clearer water!) in the rivers and streams, while Total Suspended Solids were higher than normal across the Sound.\"  \n\n\n## Supporting Information  \n\n### Turbidity - Deployed Sensors  \n\nDMR sensor network, USM-GCRL stations (in the future), Grand Bay NERR SWMP stations  \n\n\n### TSS - DEQ Beach Sampling  \n\n\n\n### TSS - Mississippi Coastal Assessment  \n\n\n\n### Other data in the area  \n\nGrand Bay SWMP has been doing TSS since ~2021  \n\n\n\n\n## About {.unnumbered}   \n\n**The `.qmd` file** that generated this section was: **turb_tss.qmd**. \n\nFor information on data sources and processing, see *appendix cross-reference here*.",
+    "supporting": [
+      "turb_tss_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}

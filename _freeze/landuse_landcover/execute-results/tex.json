@@ -1,0 +1,21 @@
+{
+  "hash": "d49e4df61c33e0e91587c91e7b84464c",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Land Use / Land Cover {#sec-LULC}  \n\n\n::: {.cell}\n\n:::\n\n\n\n## Overall Summary  \n\n**Note: These summaries are NOT factual.** They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.    \n\n\ne.g. \"The coastal counties of the watershed have become more developed in the last 10 years, while developed landcover in the more inland counties has remained relatively stable\"  \n\n\n## Supporting Information  \n\n\n\n\n## About {.unnumbered}   \n\n**The `.qmd` file** that generated this section was: **landuse_landcover.qmd**. \n\nFor information on data sources and processing, see *appendix cross-reference here*.",
+    "supporting": [
+      "landuse_landcover_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}

@@ -1,6 +1,8 @@
 # Introduction  {.unnumbered}  
 
-This website is a collection of documents summarizing the condition of the Mississippi Sound and its watershed in 2025, as compared to "baseline" conditions (which we also need to define, at appropriate spatial scales for each parameter). The outputs are compiled as a ['quarto book'](https://quarto.org/docs/books/). Each chapter is produced by a separate `.qmd` file.    
+This website is a collection of documents summarizing the condition of the Mississippi Sound and its watershed in 2025, as compared to "baseline" conditions (which we also need to define, at appropriate spatial scales for each parameter). This will be the technical supporting information for what ultimately goes into a State of the Sound report. The State of the Sound will be public-facing, whereas the intended audience for this document is largely technical. 
+
+The outputs are compiled as a ['quarto book'](https://quarto.org/docs/books/). Each chapter is produced by a separate `.qmd` file.    
 
 The purpose of the book format is to make the outputs readily findable and accessible. It also serves as an outline for future undertakings like a complete baseline characterization of these parameters and future State of the Sound reports.  
 
