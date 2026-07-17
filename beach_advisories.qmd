@@ -1,0 +1,33 @@
+# Beach Advisories {#sec-beachadvisories}  
+
+This section will be based on data from [beaches.mdeq.ms.gov](https://beaches.mdeq.ms.gov/).  
+
+## Overall Summary  
+
+**Note: These summaries are NOT factual.** They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.    
+
+
+e.g. "Overall, the number of beach advisory days was lower than normal, and at *example hot spot stations* in particular, the number has been decreasing."  
+
+
+## Supporting Information  
+
+
+### DEQ Beach Sampling  
+
+Make a map where each station is represented by a point, and the point size is based on the number of days that station was under advisory in the year.  
+
+no. of beach closure days by station (see PPBEP's online map)  
+
+
+-  Can download advisory/closure info from DEQ: https://beaches.mdeq.ms.gov/Historical/HCA 
+-  Per station, calculate # advisories/closures, # days under advisory/closure (total), mean or median # days per advisory/closure
+-  Aggregate across coast: how many days under advisory/closure across all stations (sum of station totals); break down whether it’s just a few troublesome sites (seems to be based on presentations I’ve seen from DEQ) and what % of advisory/closure days came from those few sites
+
+
+
+## About {.unnumbered}   
+
+**The `.qmd` file** that generated this section was: **`r xfun::with_ext(knitr::current_input(), "qmd")`**. 
+
+For information on data sources and processing, see *appendix cross-reference here*.

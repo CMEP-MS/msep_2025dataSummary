@@ -1,0 +1,44 @@
+# Precipitation {#sec-precip}  
+
+From my brainstorming:
+
+Precipitation (annual total, but also seasonal amounts - seasonality could be weird and still yield normal totals)  Can have maps of actual data and summary tables of anomalies  
+
+-  Maybe use gridded values to compare to 30-year climate normals; calculate anomalies, at the pixel-level; and average to whatever scale the working groups like, for a table (report each year’s status: about normal, higher than normal, lower than normal; of course we have to define those categories too).  
+-  I’m envisioning “Coastal Streams”, “Upper Pascagoula”, “Lower Pascagoula”, “Upper Pearl”, “Lower Pearl”, where those are various combinations of HUCs.  
+
+## Overall Summary  
+
+**Note: These summaries are NOT factual.** They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.    
+
+
+## Supporting Information  
+
+
+### Annual Totals  
+
+
+
+### Seasonal Totals  
+
+
+
+### Tropical Events  
+
+
+
+### Drought Index  
+
+
+
+### El Nino  
+
+
+## About {.unnumbered}   
+
+**The `.qmd` file** that generated this section was: **`r xfun::with_ext(knitr::current_input(), "qmd")`**. 
+
+For information on data sources and processing, see *appendix cross-reference here*.
+
+
+

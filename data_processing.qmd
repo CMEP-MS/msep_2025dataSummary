@@ -1,0 +1,84 @@
+# Data Processing  {#sec-dataProcessing}  
+
+In general, links to original data sources are provided in each section below. Because data files are routinely updated, the files as downloaded and used in this document are also available online. These files are provided for reproducibility and transparency; for your own analyses, we encourage you to seek out data from the original linked sources.  
+
+```{r}
+
+```
+
+
+## Weather and Climate-related variables  
+
+### Precipitation 
+
+*Go back to @sec-precipitation*
+
+### Freshwater Inflows
+
+*Go back to @sec-fwinflows*  
+
+
+
+## People and Land Use  
+
+### Population  
+
+*Go back to @sec-population*
+
+
+### Land Use / Land Cover  
+
+*Go back to @sec-LULC*
+
+
+
+## Water Conditions  
+
+### Salinity  
+
+*Go back to @sec-salinity*
+
+
+### Dissolved Oxygen  
+
+*Go back to @sec-dissolvedoxygen*
+
+
+### Turbidity / Suspended Solids  
+
+*Go back to @sec-turbtss*
+
+
+### Nutrients  
+
+*Go back to @sec-nutrients*
+
+
+### Chlorophyll *a*  
+
+*Go back to @sec-chla*
+
+
+
+## Pollutants/Contaminants  
+
+### Beach Advisories  
+
+*Go back to @sec-beachadvisories*
+
+### Shellfish Closures  
+
+*Go back to @sec-shellfishclosures*
+
+
+### Impaired Waterbodies  
+
+*Go back to @sec-impairments*
+
+
+
+
+
+## About {.unnumbered}   
+
+**The `.qmd` file** that generated this section was: **`r xfun::with_ext(knitr::current_input(), "qmd")`**. 

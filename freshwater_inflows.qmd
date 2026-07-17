@@ -1,0 +1,36 @@
+# Freshwater Inflows {#sec-fwinflows}  
+
+## Overall Summary  
+
+**Note: These summaries are NOT factual.** They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.    
+
+
+e.g. "River inputs were about average this year", or "Pearl River inputs were higher than normal, while Pascagoula River inputs were lower than normal", or "Flows from both main rivers were higher than normal this year, and the Bonnet Carre spillway was open for a substantial amount of time, causing XYZ impacts".  
+
+
+## Supporting Information  
+
+### Rivers  
+
+Pearl and Pascagoula River USGS gauges  
+
+
+### Mobile Bay  
+
+?? certainly affects the Eastern Sound, even if exact amount is in question (estimates vary; I have some references if we want to talk about this)  so probably worth noting.  
+
+
+### Bonnet Carre  
+
+
+-  # openings
+-  # days open
+-  Volume released
+
+
+
+## About {.unnumbered}   
+
+**The `.qmd` file** that generated this section was: **`r xfun::with_ext(knitr::current_input(), "qmd")`**. 
+
+For information on data sources and processing, see *appendix cross-reference here*.

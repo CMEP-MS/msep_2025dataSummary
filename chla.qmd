@@ -1,0 +1,41 @@
+# Chlorophyll *a* {#sec-chla}  
+
+Make sure to note whether programs are using "chl corrected for phaeophytin" or "not corrected for phaeophytin".    
+
+## Overall Summary  
+
+**Note: These summaries are NOT factual.** They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.    
+
+
+e.g. "Chlorophyll was about normal across coastal waterbodies this year."  
+
+
+## Supporting Information  
+
+
+### DEQ Beach Sampling  
+
+
+
+### DEQ Freshwater Programs  
+
+
+
+### Mississippi Coastal Assessment  
+
+uses uncorrected chl  
+
+
+
+### Other data in the area  
+
+Grand Bay SWMP; uses corrected chl    
+
+
+
+
+## About {.unnumbered}   
+
+**The `.qmd` file** that generated this section was: **`r xfun::with_ext(knitr::current_input(), "qmd")`**. 
+
+For information on data sources and processing, see *appendix cross-reference here*.

@@ -1,0 +1,20 @@
+# Land Use / Land Cover {#sec-LULC}  
+
+## Overall Summary  
+
+**Note: These summaries are NOT factual.** They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.    
+
+
+e.g. "The coastal counties of the watershed have become more developed in the last 10 years, while developed landcover in the more inland counties has remained relatively stable"  
+
+
+## Supporting Information  
+
+
+
+
+## About {.unnumbered}   
+
+**The `.qmd` file** that generated this section was: **`r xfun::with_ext(knitr::current_input(), "qmd")`**. 
+
+For information on data sources and processing, see *appendix cross-reference here*.

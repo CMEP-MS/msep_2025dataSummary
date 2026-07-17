@@ -1,0 +1,39 @@
+# Dissolved Oxygen {#sec-dissolvedoxygen}  
+
+## Overall Summary  
+
+**Note: These summaries are NOT factual.** They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.    
+
+
+e.g. "Hypoxia was more (or less) prevalent than usual in the eastern Sound and its bays, and about normal elsewhere along the coast. In freshwater streams and rivers, hypoxia was about normal."   
+
+
+## Supporting Information  
+
+### DEQ data  
+
+Inland sampling network programs  
+
+### Deployed Sensors  
+
+USGS/DMR hydrological stations, DMR sensor network, USM-GCRL stations (in the future), Grand Bay NERR SWMP stations  
+
+
+### DMR fisheries and shrimp sampling  
+
+
+
+### Mississippi Coastal Assessment  
+
+
+
+### Other salinity data in the area  
+
+
+
+
+## About {.unnumbered}   
+
+**The `.qmd` file** that generated this section was: **`r xfun::with_ext(knitr::current_input(), "qmd")`**. 
+
+For information on data sources and processing, see *appendix cross-reference here*.

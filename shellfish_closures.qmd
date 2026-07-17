@@ -1,0 +1,25 @@
+# Shellfish Closures {#sec-shellfishclosures}  
+
+This section will be based on data from MDMR.   
+
+## Overall Summary  
+
+**Note: These summaries are NOT factual.** They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.    
+
+
+e.g. "Shellfish beds were closed less than normal this year."  
+
+
+## Supporting Information  
+
+
+### DMR  
+
+
+
+
+## About {.unnumbered}   
+
+**The `.qmd` file** that generated this section was: **`r xfun::with_ext(knitr::current_input(), "qmd")`**. 
+
+For information on data sources and processing, see *appendix cross-reference here*.

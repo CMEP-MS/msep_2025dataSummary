@@ -1,0 +1,78 @@
+project:
+  type: book
+  
+execute:
+  echo: false
+  warning: false
+  message: false
+  error: true
+  freeze: auto
+  cache: false
+  enabled: true
+
+book:
+  title: "2025 by the numbers in the MSEP area"
+  author: "Mississippi Sound Estuary Program"
+  date: today
+  date-format: long
+  repo-url: https://github.com/CMEP-MS/msep_2025dataSummary
+  repo-actions: [source]
+  repo-link-target: "_blank"
+  downloads: [pdf]
+  cover-image: MSEP-logo.png
+  cover-image-alt: "MSEP logo"
+  navbar:
+    logo: MSEP-logo2.png
+  
+  chapters:
+    - intro.qmd
+    
+    - part: "Weather and Climate-related variables"
+      chapters: 
+        - precipitation.qmd
+        - freshwater_inflows.qmd
+
+    - part: "People and Land Use"
+      chapters: 
+        - population.qmd
+        - landuse_landcover.qmd  
+
+    - part: "Water Conditions"
+      chapters: 
+        - salinity.qmd
+        - dissolved_oxygen.qmd  
+        - turb_tss.qmd
+        - nutrients.qmd 
+        - chla.qmd
+
+    - part: "Pollutants/Contaminants"
+      chapters: 
+        - beach_advisories.qmd
+        - shellfish_closures.qmd  
+        - impaired_waterbodies.qmd
+    
+        
+  appendices:
+    - data_processing.qmd
+    
+
+    # - references.qmd
+    
+
+
+# bibliography: references.bib
+brand: _brand.yml
+
+format:
+  html:
+    theme: cosmo
+    css: custom.css
+  pdf:
+    documentclass: scrreprt
+    fig-pos: "H"
+    tbl-pos: "H"
+
+
+crossref:
+  appendix-title: "Appendix"
+  appendix-delim: ":"

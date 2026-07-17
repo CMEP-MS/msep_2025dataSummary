@@ -1,0 +1,29 @@
+meta:
+  name: 
+    full: Mississippi Sound Estuary Program
+    short: MSEP
+  link: 
+    home: https://www.mssoundep.com 
+    github: https://github.com/CMEP-MS
+    blog: https://cmep-ms.github.io/blog/
+    
+
+color:
+  palette:
+    orange: "#d26c3a"
+    light-blue: "#82acb2"
+    eggplant: "#583a55"
+    dark-teal: "#20434a"
+    gold: "#fedd7f"
+    green: "#729574"
+    
+    
+typography:
+  headings:
+    weight: bold
+    color: dark-teal
+  monospace-inline:
+    color: eggplant
+  link: 
+    color: orange
+    
