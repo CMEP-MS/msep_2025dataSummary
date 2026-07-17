@@ -1,0 +1,474 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "MSEP Area 2025 Data Summaries",
+    "section": "",
+    "text": "Introduction\nThis website is a collection of documents summarizing the condition of the Mississippi Sound and its watershed in 2025, as compared to “baseline” conditions (which we also need to define, at appropriate spatial scales for each parameter). The outputs are compiled as a ‘quarto book’. Each chapter is produced by a separate .qmd file.\nThe purpose of the book format is to make the outputs readily findable and accessible. It also serves as an outline for future undertakings like a complete baseline characterization of these parameters and future State of the Sound reports.\nYou can download a pdf version of this entire book by clicking on the pdf icon on the right side of the toolbar at the top of this page.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "precipitation.html",
+    "href": "precipitation.html",
+    "title": "1  Precipitation",
+    "section": "",
+    "text": "1.1 Overall Summary\nFrom my brainstorming:\nPrecipitation (annual total, but also seasonal amounts - seasonality could be weird and still yield normal totals) Can have maps of actual data and summary tables of anomalies\nNote: These summaries are NOT factual. They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.",
+    "crumbs": [
+      "Weather and Climate-related variables",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Precipitation</span>"
+    ]
+  },
+  {
+    "objectID": "precipitation.html#supporting-information",
+    "href": "precipitation.html#supporting-information",
+    "title": "1  Precipitation",
+    "section": "1.2 Supporting Information",
+    "text": "1.2 Supporting Information\n\n1.2.1 Annual Totals\n\n\n1.2.2 Seasonal Totals\n\n\n1.2.3 Tropical Events\n\n\n1.2.4 Drought Index\n\n\n1.2.5 El Nino",
+    "crumbs": [
+      "Weather and Climate-related variables",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Precipitation</span>"
+    ]
+  },
+  {
+    "objectID": "precipitation.html#about",
+    "href": "precipitation.html#about",
+    "title": "1  Precipitation",
+    "section": "About",
+    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "crumbs": [
+      "Weather and Climate-related variables",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Precipitation</span>"
+    ]
+  },
+  {
+    "objectID": "freshwater_inflows.html",
+    "href": "freshwater_inflows.html",
+    "title": "2  Freshwater Inflows",
+    "section": "",
+    "text": "2.1 Overall Summary\nNote: These summaries are NOT factual. They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.\ne.g. “River inputs were about average this year”, or “Pearl River inputs were higher than normal, while Pascagoula River inputs were lower than normal”, or “Flows from both main rivers were higher than normal this year, and the Bonnet Carre spillway was open for a substantial amount of time, causing XYZ impacts”.",
+    "crumbs": [
+      "Weather and Climate-related variables",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Freshwater Inflows</span>"
+    ]
+  },
+  {
+    "objectID": "freshwater_inflows.html#supporting-information",
+    "href": "freshwater_inflows.html#supporting-information",
+    "title": "2  Freshwater Inflows",
+    "section": "2.2 Supporting Information",
+    "text": "2.2 Supporting Information\n\n2.2.1 Rivers\nPearl and Pascagoula River USGS gauges\n\n\n2.2.2 Mobile Bay\n?? certainly affects the Eastern Sound, even if exact amount is in question (estimates vary; I have some references if we want to talk about this) so probably worth noting.\n\n\n2.2.3 Bonnet Carre\n\nnumber of openings\nnumber of days open\nVolume released",
+    "crumbs": [
+      "Weather and Climate-related variables",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Freshwater Inflows</span>"
+    ]
+  },
+  {
+    "objectID": "freshwater_inflows.html#about",
+    "href": "freshwater_inflows.html#about",
+    "title": "2  Freshwater Inflows",
+    "section": "About",
+    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "crumbs": [
+      "Weather and Climate-related variables",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Freshwater Inflows</span>"
+    ]
+  },
+  {
+    "objectID": "population.html",
+    "href": "population.html",
+    "title": "3  Population",
+    "section": "",
+    "text": "3.1 Overall Summary\nNote: These summaries are NOT factual. They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.\ne.g. “Population has been steady in the watershed for the last 10 years”",
+    "crumbs": [
+      "People and Land Use",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Population</span>"
+    ]
+  },
+  {
+    "objectID": "population.html#supporting-information",
+    "href": "population.html#supporting-information",
+    "title": "3  Population",
+    "section": "3.2 Supporting Information",
+    "text": "3.2 Supporting Information\nSee population calculations in the msep_geospatialCharacterization repository, and repeat them for current year vs. 5, 10, 20 years ago.",
+    "crumbs": [
+      "People and Land Use",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Population</span>"
+    ]
+  },
+  {
+    "objectID": "population.html#about",
+    "href": "population.html#about",
+    "title": "3  Population",
+    "section": "About",
+    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "crumbs": [
+      "People and Land Use",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Population</span>"
+    ]
+  },
+  {
+    "objectID": "landuse_landcover.html",
+    "href": "landuse_landcover.html",
+    "title": "4  Land Use / Land Cover",
+    "section": "",
+    "text": "4.1 Overall Summary\nNote: These summaries are NOT factual. They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.\ne.g. “The coastal counties of the watershed have become more developed in the last 10 years, while developed landcover in the more inland counties has remained relatively stable”",
+    "crumbs": [
+      "People and Land Use",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Land Use / Land Cover</span>"
+    ]
+  },
+  {
+    "objectID": "landuse_landcover.html#supporting-information",
+    "href": "landuse_landcover.html#supporting-information",
+    "title": "4  Land Use / Land Cover",
+    "section": "4.2 Supporting Information",
+    "text": "4.2 Supporting Information",
+    "crumbs": [
+      "People and Land Use",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Land Use / Land Cover</span>"
+    ]
+  },
+  {
+    "objectID": "landuse_landcover.html#about",
+    "href": "landuse_landcover.html#about",
+    "title": "4  Land Use / Land Cover",
+    "section": "About",
+    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "crumbs": [
+      "People and Land Use",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Land Use / Land Cover</span>"
+    ]
+  },
+  {
+    "objectID": "salinity.html",
+    "href": "salinity.html",
+    "title": "5  Salinity",
+    "section": "",
+    "text": "5.1 Overall Summary\nNote: These summaries are NOT factual. They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.\ne.g. “Salinity was lower than normal, and this was more pronounced in the Eastern Sound than the rest of the area.” Tie back to Chapter 1 and Chapter 2 chapters.",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Salinity</span>"
+    ]
+  },
+  {
+    "objectID": "salinity.html#supporting-information",
+    "href": "salinity.html#supporting-information",
+    "title": "5  Salinity",
+    "section": "5.2 Supporting Information",
+    "text": "5.2 Supporting Information\n\n5.2.1 Deployed Sensors\nUSGS/DMR hydrological stations, DMR sensor network, USM-GCRL stations (in the future), Grand Bay NERR SWMP stations\n\n\n5.2.2 DMR fisheries and shrimp sampling\n\n\n5.2.3 Mississippi Coastal Assessment\n\n\n5.2.4 Other salinity data in the area",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Salinity</span>"
+    ]
+  },
+  {
+    "objectID": "salinity.html#about",
+    "href": "salinity.html#about",
+    "title": "5  Salinity",
+    "section": "About",
+    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Salinity</span>"
+    ]
+  },
+  {
+    "objectID": "dissolved_oxygen.html",
+    "href": "dissolved_oxygen.html",
+    "title": "6  Dissolved Oxygen",
+    "section": "",
+    "text": "6.1 Overall Summary\nNote: These summaries are NOT factual. They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.\ne.g. “Hypoxia was more (or less) prevalent than usual in the eastern Sound and its bays, and about normal elsewhere along the coast. In freshwater streams and rivers, hypoxia was about normal.”",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Dissolved Oxygen</span>"
+    ]
+  },
+  {
+    "objectID": "dissolved_oxygen.html#supporting-information",
+    "href": "dissolved_oxygen.html#supporting-information",
+    "title": "6  Dissolved Oxygen",
+    "section": "6.2 Supporting Information",
+    "text": "6.2 Supporting Information\n\n6.2.1 DEQ data\nInland sampling network programs\n\n\n6.2.2 Deployed Sensors\nUSGS/DMR hydrological stations, DMR sensor network, USM-GCRL stations (in the future), Grand Bay NERR SWMP stations\n\n\n6.2.3 DMR fisheries and shrimp sampling\n\n\n6.2.4 Mississippi Coastal Assessment\n\n\n6.2.5 Other salinity data in the area",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Dissolved Oxygen</span>"
+    ]
+  },
+  {
+    "objectID": "dissolved_oxygen.html#about",
+    "href": "dissolved_oxygen.html#about",
+    "title": "6  Dissolved Oxygen",
+    "section": "About",
+    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Dissolved Oxygen</span>"
+    ]
+  },
+  {
+    "objectID": "turb_tss.html",
+    "href": "turb_tss.html",
+    "title": "7  Turbidity / Suspended Solids",
+    "section": "",
+    "text": "7.1 Overall Summary\nNote: These summaries are NOT factual. They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.\ne.g. “Turbidity was lower than normal (clearer water!) in the rivers and streams, while Total Suspended Solids were higher than normal across the Sound.”",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Turbidity / Suspended Solids</span>"
+    ]
+  },
+  {
+    "objectID": "turb_tss.html#supporting-information",
+    "href": "turb_tss.html#supporting-information",
+    "title": "7  Turbidity / Suspended Solids",
+    "section": "7.2 Supporting Information",
+    "text": "7.2 Supporting Information\n\n7.2.1 Turbidity - Deployed Sensors\nDMR sensor network, USM-GCRL stations (in the future), Grand Bay NERR SWMP stations\n\n\n7.2.2 TSS - DEQ Beach Sampling\n\n\n7.2.3 TSS - Mississippi Coastal Assessment\n\n\n7.2.4 Other data in the area\nGrand Bay SWMP has been doing TSS since ~2021",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Turbidity / Suspended Solids</span>"
+    ]
+  },
+  {
+    "objectID": "turb_tss.html#about",
+    "href": "turb_tss.html#about",
+    "title": "7  Turbidity / Suspended Solids",
+    "section": "About",
+    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Turbidity / Suspended Solids</span>"
+    ]
+  },
+  {
+    "objectID": "nutrients.html",
+    "href": "nutrients.html",
+    "title": "8  Nutrients",
+    "section": "",
+    "text": "8.1 Overall Summary\nMay want to split this into N and P; there are different species of each and that might be a lot for one chapter.\nNote: These summaries are NOT factual. They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.\ne.g. “Nitrogen and phosphorus concentrations were higher than normal, and this was more pronounced in the Eastern Sound than the rest of the area. This coincides with extreme Bonnet Carre inputs.”",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Nutrients</span>"
+    ]
+  },
+  {
+    "objectID": "nutrients.html#supporting-information",
+    "href": "nutrients.html#supporting-information",
+    "title": "8  Nutrients",
+    "section": "8.2 Supporting Information",
+    "text": "8.2 Supporting Information\n\n8.2.1 DEQ Beach Sampling\n\n\n8.2.2 DEQ Freshwater Programs\n\n\n8.2.3 Mississippi Coastal Assessment\n\n\n8.2.4 Other data in the area\nGrand Bay SWMP",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Nutrients</span>"
+    ]
+  },
+  {
+    "objectID": "nutrients.html#about",
+    "href": "nutrients.html#about",
+    "title": "8  Nutrients",
+    "section": "About",
+    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Nutrients</span>"
+    ]
+  },
+  {
+    "objectID": "chla.html",
+    "href": "chla.html",
+    "title": "9  Chlorophyll a",
+    "section": "",
+    "text": "9.1 Overall Summary\nMake sure to note whether programs are using “chl corrected for phaeophytin” or “not corrected for phaeophytin”.\nNote: These summaries are NOT factual. They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.\ne.g. “Chlorophyll was about normal across coastal waterbodies this year.”",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Chlorophyll *a*</span>"
+    ]
+  },
+  {
+    "objectID": "chla.html#supporting-information",
+    "href": "chla.html#supporting-information",
+    "title": "9  Chlorophyll a",
+    "section": "9.2 Supporting Information",
+    "text": "9.2 Supporting Information\n\n9.2.1 DEQ Beach Sampling\n\n\n9.2.2 DEQ Freshwater Programs\n\n\n9.2.3 Mississippi Coastal Assessment\nuses uncorrected chl\n\n\n9.2.4 Other data in the area\nGrand Bay SWMP; uses corrected chl",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Chlorophyll *a*</span>"
+    ]
+  },
+  {
+    "objectID": "chla.html#about",
+    "href": "chla.html#about",
+    "title": "9  Chlorophyll a",
+    "section": "About",
+    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "crumbs": [
+      "Water Conditions",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Chlorophyll *a*</span>"
+    ]
+  },
+  {
+    "objectID": "beach_advisories.html",
+    "href": "beach_advisories.html",
+    "title": "10  Beach Advisories",
+    "section": "",
+    "text": "10.1 Overall Summary\nThis section will be based on data from beaches.mdeq.ms.gov.\nNote: These summaries are NOT factual. They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.\ne.g. “Overall, the number of beach advisory days was lower than normal, and at example hot spot stations in particular, the number has been decreasing.”",
+    "crumbs": [
+      "Pollutants/Contaminants",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Beach Advisories</span>"
+    ]
+  },
+  {
+    "objectID": "beach_advisories.html#supporting-information",
+    "href": "beach_advisories.html#supporting-information",
+    "title": "10  Beach Advisories",
+    "section": "10.2 Supporting Information",
+    "text": "10.2 Supporting Information\n\n10.2.1 DEQ Beach Sampling\nMake a map where each station is represented by a point, and the point size is based on the number of days that station was under advisory in the year.\nno. of beach closure days by station (see PPBEP’s online map)\n\nCan download advisory/closure info from DEQ: https://beaches.mdeq.ms.gov/Historical/HCA\nPer station, calculate # advisories/closures, # days under advisory/closure (total), mean or median # days per advisory/closure\nAggregate across coast: how many days under advisory/closure across all stations (sum of station totals); break down whether it’s just a few troublesome sites (seems to be based on presentations I’ve seen from DEQ) and what % of advisory/closure days came from those few sites",
+    "crumbs": [
+      "Pollutants/Contaminants",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Beach Advisories</span>"
+    ]
+  },
+  {
+    "objectID": "beach_advisories.html#about",
+    "href": "beach_advisories.html#about",
+    "title": "10  Beach Advisories",
+    "section": "About",
+    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "crumbs": [
+      "Pollutants/Contaminants",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Beach Advisories</span>"
+    ]
+  },
+  {
+    "objectID": "shellfish_closures.html",
+    "href": "shellfish_closures.html",
+    "title": "11  Shellfish Closures",
+    "section": "",
+    "text": "11.1 Overall Summary\nThis section will be based on data from MDMR.\nNote: These summaries are NOT factual. They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.\ne.g. “Shellfish beds were closed less than normal this year.”",
+    "crumbs": [
+      "Pollutants/Contaminants",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Shellfish Closures</span>"
+    ]
+  },
+  {
+    "objectID": "shellfish_closures.html#supporting-information",
+    "href": "shellfish_closures.html#supporting-information",
+    "title": "11  Shellfish Closures",
+    "section": "11.2 Supporting Information",
+    "text": "11.2 Supporting Information\n\n11.2.1 DMR",
+    "crumbs": [
+      "Pollutants/Contaminants",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Shellfish Closures</span>"
+    ]
+  },
+  {
+    "objectID": "shellfish_closures.html#about",
+    "href": "shellfish_closures.html#about",
+    "title": "11  Shellfish Closures",
+    "section": "About",
+    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "crumbs": [
+      "Pollutants/Contaminants",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Shellfish Closures</span>"
+    ]
+  },
+  {
+    "objectID": "impaired_waterbodies.html",
+    "href": "impaired_waterbodies.html",
+    "title": "12  Impaired Waterbodies",
+    "section": "",
+    "text": "12.1 Overall Summary\nThis section will be based on DEQ’s 303d list.\nNote: These summaries are NOT factual. They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.\nHere just the number of miles (rivers/streams) or acres (lakes, estuaries) that are listed as impaired. Was this more or less than the last State of the Sound report?",
+    "crumbs": [
+      "Pollutants/Contaminants",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Impaired Waterbodies</span>"
+    ]
+  },
+  {
+    "objectID": "impaired_waterbodies.html#supporting-information",
+    "href": "impaired_waterbodies.html#supporting-information",
+    "title": "12  Impaired Waterbodies",
+    "section": "12.2 Supporting Information",
+    "text": "12.2 Supporting Information\n\n12.2.1 DEQ Info",
+    "crumbs": [
+      "Pollutants/Contaminants",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Impaired Waterbodies</span>"
+    ]
+  },
+  {
+    "objectID": "impaired_waterbodies.html#about",
+    "href": "impaired_waterbodies.html#about",
+    "title": "12  Impaired Waterbodies",
+    "section": "About",
+    "text": "About\nThe .qmd file that generated this section was: r xfun::with_ext(knitr::current_input(), \"qmd\").\nFor information on data sources and processing, see appendix cross-reference here.",
+    "crumbs": [
+      "Pollutants/Contaminants",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Impaired Waterbodies</span>"
+    ]
+  },
+  {
+    "objectID": "data_processing.html",
+    "href": "data_processing.html",
+    "title": "Appendix A: Data Processing",
+    "section": "",
+    "text": "A.1 Weather and Climate-related variables\nIn general, links to original data sources are provided in each section below. Because data files are routinely updated, the files as downloaded and used in this document are also available online. These files are provided for reproducibility and transparency; for your own analyses, we encourage you to seek out data from the original linked sources.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Data Processing</span>"
+    ]
+  },
+  {
+    "objectID": "data_processing.html#weather-and-climate-related-variables",
+    "href": "data_processing.html#weather-and-climate-related-variables",
+    "title": "Appendix A: Data Processing",
+    "section": "",
+    "text": "A.1.1 Precipitation\nGo back to Chapter 1\n\n\nA.1.2 Freshwater Inflows\nGo back to Chapter 2",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Data Processing</span>"
+    ]
+  },
+  {
+    "objectID": "data_processing.html#people-and-land-use",
+    "href": "data_processing.html#people-and-land-use",
+    "title": "Appendix A: Data Processing",
+    "section": "A.2 People and Land Use",
+    "text": "A.2 People and Land Use\n\nA.2.1 Population\nGo back to Chapter 3\n\n\nA.2.2 Land Use / Land Cover\nGo back to Chapter 4",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Data Processing</span>"
+    ]
+  },
+  {
+    "objectID": "data_processing.html#water-conditions",
+    "href": "data_processing.html#water-conditions",
+    "title": "Appendix A: Data Processing",
+    "section": "A.3 Water Conditions",
+    "text": "A.3 Water Conditions\n\nA.3.1 Salinity\nGo back to Chapter 5\n\n\nA.3.2 Dissolved Oxygen\nGo back to Chapter 6\n\n\nA.3.3 Turbidity / Suspended Solids\nGo back to Chapter 7\n\n\nA.3.4 Nutrients\nGo back to Chapter 8\n\n\nA.3.5 Chlorophyll a\nGo back to Chapter 9",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Data Processing</span>"
+    ]
+  },
+  {
+    "objectID": "data_processing.html#pollutantscontaminants",
+    "href": "data_processing.html#pollutantscontaminants",
+    "title": "Appendix A: Data Processing",
+    "section": "A.4 Pollutants/Contaminants",
+    "text": "A.4 Pollutants/Contaminants\n\nA.4.1 Beach Advisories\nGo back to Chapter 10\n\n\nA.4.2 Shellfish Closures\nGo back to Chapter 11\n\n\nA.4.3 Impaired Waterbodies\nGo back to Chapter 12",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Data Processing</span>"
+    ]
+  },
+  {
+    "objectID": "data_processing.html#about",
+    "href": "data_processing.html#about",
+    "title": "Appendix A: Data Processing",
+    "section": "About",
+    "text": "About\nThe .qmd file that generated this section was: data_processing.qmd.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Data Processing</span>"
+    ]
+  }
+]

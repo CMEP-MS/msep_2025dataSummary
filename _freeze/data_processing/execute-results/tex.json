@@ -1,0 +1,21 @@
+{
+  "hash": "b19c0c28351c5dc7a625756f4990f93d",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Data Processing  {#sec-dataProcessing}  \n\nIn general, links to original data sources are provided in each section below. Because data files are routinely updated, the files as downloaded and used in this document are also available online. These files are provided for reproducibility and transparency; for your own analyses, we encourage you to seek out data from the original linked sources.  \n\n\n::: {.cell}\n\n:::\n\n\n\n## Weather and Climate-related variables  \n\n### Precipitation \n\n*Go back to @sec-precipitation*\n\n### Freshwater Inflows\n\n*Go back to @sec-fwinflows*  \n\n\n\n## People and Land Use  \n\n### Population  \n\n*Go back to @sec-population*\n\n\n### Land Use / Land Cover  \n\n*Go back to @sec-LULC*\n\n\n\n## Water Conditions  \n\n### Salinity  \n\n*Go back to @sec-salinity*\n\n\n### Dissolved Oxygen  \n\n*Go back to @sec-dissolvedoxygen*\n\n\n### Turbidity / Suspended Solids  \n\n*Go back to @sec-turbtss*\n\n\n### Nutrients  \n\n*Go back to @sec-nutrients*\n\n\n### Chlorophyll *a*  \n\n*Go back to @sec-chla*\n\n\n\n## Pollutants/Contaminants  \n\n### Beach Advisories  \n\n*Go back to @sec-beachadvisories*\n\n### Shellfish Closures  \n\n*Go back to @sec-shellfishclosures*\n\n\n### Impaired Waterbodies  \n\n*Go back to @sec-impairments*\n\n\n\n\n\n## About {.unnumbered}   \n\n**The `.qmd` file** that generated this section was: **data_processing.qmd**. ",
+    "supporting": [
+      "data_processing_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}

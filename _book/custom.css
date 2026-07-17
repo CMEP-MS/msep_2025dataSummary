@@ -1,0 +1,40 @@
+/* Navbar background color */
+.navbar {
+  background-color: #d3e2e5 !important;
+}
+
+/* Navbar text and links */
+.navbar-dark .navbar-nav .nav-link,
+.navbar-light .navbar-nav .nav-link,
+.navbar-brand,
+.navbar .navbar-brand {
+  color: #20434a !important;
+}
+
+/* All navbar icons and buttons */
+.navbar a,
+.navbar button,
+.navbar .quarto-navbar-tools a,
+.navbar .quarto-navbar-tools button {
+  color: #20434a !important;
+}
+
+/* Make all child divs in a tmap legend left-aligned */
+.info.legend > div {
+  text-align: left !important;
+}
+
+/* Nice formatting for population numbers */
+.summary-numberA {
+  font-size: 1.5em;
+  color: #82acb2;
+  margin-left: 2em;
+  font-weight: bold;
+}
+
+.summary-numberB {
+  font-size: 1.5em;
+  color: #d26c3a;
+  margin-left: 2em;
+  font-weight: bold;
+}

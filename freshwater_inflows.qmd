@@ -23,8 +23,8 @@ Pearl and Pascagoula River USGS gauges
 ### Bonnet Carre  
 
 
--  # openings
--  # days open
+-  number of openings
+-  number of days open
 -  Volume released
 
 
