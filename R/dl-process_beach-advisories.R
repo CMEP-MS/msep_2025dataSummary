@@ -25,6 +25,8 @@ dat_stn.needed <- dat |>
 dat_stn.needed$station <- str_match(dat_stn.needed$Description, "(?i)county\\s*station\\s*([A-Za-z0-9]+)")[,2]
 dat_stn.needed$beach   <- str_match(dat_stn.needed$Description,
                         "(?i)county\\s*station\\s*[A-Za-z0-9]+\\s*\\(?\\s*(?:\\[[^\\]]*\\]\\s*)?([A-Za-z][A-Za-z '.\\-]*?Beach)")[,2]
+dat_stn.needed$full_location <- str_match(dat_stn.needed$Description,
+                                          "(?is)(\\S+\\s+county.*)$")[,2]
 
 dat_2025 <- dat %>%
   filter(year(`Start Date`) == 2025 | year(`End Date`) == 2025)
