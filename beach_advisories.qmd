@@ -1,7 +1,25 @@
 # Beach Advisories {#sec-beachadvisories}  
 
 ```{r}
+library(dplyr)
+library(sf)
+library(mseptools)
+library(tmap)
 
+load(here::here("data",
+                "beach_advisories",
+                "beach_advisories_2025.RData"))
+
+# render the maps interactively or statically
+out_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+
+if (out_format == "html") {
+  message("Setting tmap mode to 'view'")
+  tmap_mode("view")
+} else {
+  message("Setting tmap mode to 'plot'")
+  tmap_mode("plot")
+}
 ```
 
 
@@ -27,7 +45,40 @@ no. of beach closure days by station (see PPBEP's online map)
 
 -  Can download advisory/closure info from DEQ: https://beaches.mdeq.ms.gov/Historical/HCA 
 -  Per station, calculate # advisories/closures, # days under advisory/closure (total), mean or median # days per advisory/closure
--  Aggregate across coast: how many days under advisory/closure across all stations (sum of station totals); break down whether it’s just a few troublesome sites (seems to be based on presentations I’ve seen from DEQ) and what % of advisory/closure days came from those few sites
+-  Aggregate across coast: how many days under advisory/closure across all stations (sum of station totals); break down whether it’s just a few troublesome sites (seems to be based on presentations I’ve seen from DEQ) and what % of advisory/closure days came from those few sites  
+
+
+```{r}
+summ_2025 <- beach_advisories_2025 |> 
+  rename(station = `Station Number`) |> 
+  summarize(.by = station,
+            n_advs = n(),
+            days_advs_2025 = sum(days_in_2025),
+            days_per_advs_min = min(days_in_2025),
+            days_per_advs_median = round(median(days_in_2025)),
+            days_per_advs_mean = round(mean(days_in_2025)),
+            days_per_advs_max = max(days_in_2025)) |> 
+  full_join(MDEQ_beach_stations,
+            by = c("station" = "DEQStation")) |> 
+  mutate(n_advs = case_when(is.na(n_advs) ~ 0,
+                            .default = n_advs),
+         days_advs_2025 = case_when(is.na(days_advs_2025) ~ 0,
+                                    .default = days_advs_2025)) |> 
+  arrange(station) |> 
+  st_as_sf(crs = st_crs(MDEQ_beach_stations))
+```
+
+
+```{r}
+tm_shape(summ_2025) +
+  tm_basemap("CartoDB.Positron") +
+  tm_bubbles(size = "days_advs_2025",
+             scale = 1.3,
+             col = "brown",
+             alpha = 0.6,
+             # col = "white",
+             title.size = "Total Days under Advisory in 2025")
+```
 
 
 
