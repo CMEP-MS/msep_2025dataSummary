@@ -1,8 +1,28 @@
 # Precipitation {#sec-precipitation}  
 
 ```{r}
+library(terra)
+library(msepBoundaries)
+library(tmap)
+
+prcp_monthly <- rast(here::here("data",
+                                "precip",
+                                "processed",
+                                "precip_2025.tif"))
+prcp_monthly_in <- prcp_monthly / 25.4
+prcp_annual_in <- sum(prcp_monthly_in, na.rm = TRUE)
+
+
+
+# render the maps interactively or statically
+out_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+# moving the actual ifelse statements before the maps that I do want to be interactive
+# because making the faceted ones interactive is not good
+# at this point it's only the annual totals, averaged to HUC8,
+# that I want to allow to be interactive. Everything else will be plot mode.
 
 ```
+
 
 
 From my brainstorming:
@@ -22,9 +42,157 @@ Precipitation (annual total, but also seasonal amounts - seasonality could be we
 
 ### Annual Totals  
 
+Annual totals were calculated from monthly precipitation data obtained from the PRISM Group at Oregon State University, https://prism.oregonstate.edu which were accessed 29 July 2026.
+
+```{r}
+tmap_mode("plot")
+
+tm_shape(prcp_annual_in) +
+  tm_basemap("CartoDB.Positron") +
+  tm_raster(col.scale = tm_scale_continuous(values = "brewer.gn_bu"),
+            col_alpha = 0.8,
+            col.free = FALSE,  # make the colors the same in every facet
+            col.legend = tm_legend(title = "inches",
+                                   position = tm_pos_out("right"))) +
+  # add the msep boundary line
+  tm_shape(outline_full) +
+  tm_borders(col = "black", lwd = 2) +
+  tm_title("Precipitation Total, 2025")
+```
 
 
-### Seasonal Totals  
+Here is the same map, but with HUC8s outlined.  
+
+```{r}
+tmap_mode("plot")
+
+tm_shape(prcp_annual_in) +
+  tm_basemap("CartoDB.Positron") +
+  tm_raster(col.scale = tm_scale_continuous(values = "brewer.gn_bu"),
+            col_alpha = 0.8,
+            col.free = FALSE,  # make the colors the same in every facet
+            col.legend = tm_legend(title = "inches",
+                                   position = tm_pos_out("right"))) +
+  # add the huc8 lines
+  tm_shape(subbasins_full) +
+  tm_borders(col = "black", lwd = 2) +
+  tm_title("Precipitation Total, 2025")
+```
+
+
+Averaged to HUC8:  
+
+```{r}
+# make a spat vector of huc8s for summaries
+huc8_vect <- vect(subbasins_full)
+prcp_huc8_avg.ann <- extract(prcp_annual_in, huc8_vect, fun = mean, na.rm = TRUE, bind = TRUE)
+```
+
+```{r}
+# allow this one to be interactive
+if (out_format == "html") {
+  message("Setting tmap mode to 'view'")
+  tmap_mode("view")
+} else {
+  message("Setting tmap mode to 'plot'")
+  tmap_mode("plot")
+}
+
+
+tm_shape(prcp_huc8_avg.ann) +
+  tm_basemap("CartoDB.Positron") +
+  tm_polygons(fill = "sum",
+              fill.scale = tm_scale(values = "brewer.gn_bu"),
+              fill_alpha = 0.8,
+              fill.free = FALSE,  # make the colors the same in every facet
+              fill.legend = tm_legend(title = "inches",
+                                      position = tm_pos_out("right")),
+              col = "black",  # polygon outline color
+              lwd = 2) +
+  tm_title("Precipitation Total by Subbasin, 2025")
+```
+
+#### This would be a great place for a map of anomaly from .... climate normal? ... by HUC8  
+
+Because the climate normal on the coast is upwards of 60 inches, and it looks like the coast was in the mid-50s range in 2025, which is a little drier than normal. Climate normals in the northern part of the watershed are in the mid-to-upper 50s so they look about typical for 2025. I'm eyeballing here and the color scale is slightly different, but see the [MSEP Characterization chapter on precipitation](https://msepcharacterization.netlify.app/precipitation) for the details I have compiled in the past (climate normals from NCEI).  
+
+### Monthly Totals  
+
+Monthly data are from the PRISM Group at Oregon State University, https://prism.oregonstate.edu and were accessed 29 July 2026.
+
+```{r}
+tmap_mode("plot")
+
+tm_shape(prcp_monthly_in) +
+  tm_basemap("CartoDB.Positron") +
+  tm_raster(col.scale = tm_scale_continuous(values = "brewer.gn_bu"),
+            col_alpha = 0.8,
+            col.free = FALSE,  # make the colors the same in every facet
+            col.legend = tm_legend(title = "inches",
+                                   position = tm_pos_out("right"))) +
+  # add the msep boundary line
+  tm_shape(outline_full) +
+  tm_borders(col = "black", lwd = 2) +
+  # change the layout
+  tm_facets(ncol = 4, nrow = 3) +
+  tm_title("Precipitation by Month, 2025")
+```
+
+
+Here is the same map, but with HUC8s outlined.  
+
+```{r}
+tmap_mode("plot")
+
+tm_shape(prcp_monthly_in) +
+  tm_basemap("CartoDB.Positron") +
+  tm_raster(col.scale = tm_scale_continuous(values = "brewer.gn_bu"),
+            col_alpha = 0.8,
+            col.free = FALSE,  # make the colors the same in every facet
+            col.legend = tm_legend(title = "inches",
+                                   position = tm_pos_out("right"))) +
+  # add the huc8 lines
+  tm_shape(subbasins_full) +
+  tm_borders(col = "black", lwd = 2) +
+  # change the layout
+  tm_facets(ncol = 4, nrow = 3) +
+  tm_title("Precipitation by Month, 2025")
+```
+
+
+This may be too many subdivisions to try and summarize. Here's what things look like averaged to the HUC8 level though, which will keep it simpler and make it easier to make comparisons to historical data.  
+
+
+```{r}
+# make a spat vector of huc8s for summaries
+huc8_vect <- vect(subbasins_full)
+prcp_huc8_avg <- extract(prcp_monthly_in, huc8_vect, fun = mean, na.rm = TRUE, bind = TRUE)
+```
+
+```{r}
+month_cols <- names(prcp_huc8_avg)
+month_cols <- month_cols[!(month_cols %in% c("huc8", "name"))]  # drop the ID column, keep only month value columns
+```
+
+```{r}
+tmap_mode("plot")
+
+tm_shape(prcp_huc8_avg) +
+  tm_basemap("CartoDB.Positron") +
+  tm_polygons(fill = month_cols,
+              fill.scale = tm_scale(values = "brewer.gn_bu"),
+              fill_alpha = 0.8,
+              fill.free = FALSE,  # make the colors the same in every facet
+              fill.legend = tm_legend(title = "inches",
+                                      position = tm_pos_out("right")),
+              col = "black",  # polygon outline color
+              lwd = 2) +
+  # change the layout
+  tm_facets(ncol = 4, nrow = 3) +
+  tm_title("Precipitation by Month, 2025")
+```
+
+May seems to have been the wettest month in 2025, and that's not really typical - actually in the climate normals (see them [here](https://msepcharacterization.netlify.app/precipitation#monthly-totals-30-year-normal)), the color scale only goes up to 8.5 inches per month, and May 2025 exceeded that.  
 
 
 
