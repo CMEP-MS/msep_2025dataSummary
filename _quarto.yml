@@ -69,6 +69,7 @@ format:
   html:
     theme: cosmo
     css: custom.css
+    toc-depth: 3
   pdf:
     documentclass: scrreprt
     fig-pos: "H"

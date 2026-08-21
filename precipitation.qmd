@@ -1,9 +1,18 @@
 # Precipitation {#sec-precipitation}  
 
 ```{r}
+library(dplyr)
+library(tidyr)
 library(terra)
+library(sf)
 library(msepBoundaries)
+library(msepBaselineData)
 library(tmap)
+library(reactable)
+library(scales)
+library(knitr)
+library(kableExtra)
+
 
 prcp_monthly <- rast(here::here("data",
                                 "precip",
@@ -16,6 +25,13 @@ prcp_annual_in <- sum(prcp_monthly_in, na.rm = TRUE)
 
 # render the maps interactively or statically
 out_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+
+# if it's an interactive session, out_format will be NULL from the above command, so do things the html way
+if(is.null(out_format)){
+  out_format <- "html"
+}
+
+
 # moving the actual ifelse statements before the maps that I do want to be interactive
 # because making the faceted ones interactive is not good
 # at this point it's only the annual totals, averaged to HUC8,
@@ -80,12 +96,13 @@ tm_shape(prcp_annual_in) +
 ```
 
 
-Averaged to HUC8:  
+#### Averaged to HUC8  
 
 ```{r}
 # make a spat vector of huc8s for summaries
 huc8_vect <- vect(subbasins_full)
-prcp_huc8_avg.ann <- extract(prcp_annual_in, huc8_vect, fun = mean, na.rm = TRUE, bind = TRUE)
+prcp_huc8_avg.ann <- extract(prcp_annual_in, huc8_vect, fun = mean, na.rm = TRUE, bind = TRUE) |> 
+  st_as_sf()
 ```
 
 ```{r}
@@ -112,9 +129,56 @@ tm_shape(prcp_huc8_avg.ann) +
   tm_title("Precipitation Total by Subbasin, 2025")
 ```
 
-#### This would be a great place for a map of anomaly from .... climate normal? ... by HUC8  
+### Annual Anomalies  
 
 Because the climate normal on the coast is upwards of 60 inches, and it looks like the coast was in the mid-50s range in 2025, which is a little drier than normal. Climate normals in the northern part of the watershed are in the mid-to-upper 50s so they look about typical for 2025. I'm eyeballing here and the color scale is slightly different, but see the [MSEP Characterization chapter on precipitation](https://msepcharacterization.netlify.app/precipitation) for the details I have compiled in the past (climate normals from NCEI).  
+
+```{r}
+# Pull annual normal and annual 2025 total into a plain data frame
+annual_2025 <- as.data.frame(prcp_huc8_avg.ann) %>%
+  select(huc8, sum)
+
+annual_normal <- precip_normals_huc8avg %>%
+  st_drop_geometry() %>%
+  select(huc8, basin_name, subbasin_name, Annual)   # adjust name if your annual normal column is called something else
+
+annual_anomaly <- annual_normal %>%
+  left_join(annual_2025, by = "huc8") %>%
+  mutate(anomaly = sum - Annual)
+
+# Attach back to geometry for mapping
+prcp_anomaly_ann_sv <- terra::merge(prcp_huc8_avg.ann[, "huc8"], 
+                              annual_anomaly[, c("huc8", "basin_name", "subbasin_name", "anomaly")], 
+                              by = "huc8")
+```
+
+```{r}
+max_abs <- max(abs(as.data.frame(prcp_anomaly_ann_sv)$anomaly), na.rm = TRUE)
+
+# allow this one to be interactive
+if (out_format == "html") {
+  message("Setting tmap mode to 'view'")
+  tmap_mode("view")
+} else {
+  message("Setting tmap mode to 'plot'")
+  tmap_mode("plot")
+}
+
+
+tm_shape(prcp_anomaly_ann_sv) +
+  tm_basemap("CartoDB.Positron") +
+  tm_polygons(fill = "anomaly",
+              fill.scale = tm_scale(values = "brewer.rd_bu",
+                                     midpoint = 0,
+                                     limits = c(-max_abs, max_abs)),
+              fill_alpha = 0.8,
+              fill.free = FALSE,
+              fill.legend = tm_legend(title = "inches\n(2025 - normal)",
+                                      position = tm_pos_out("right")),
+              col = "black",
+              lwd = 2) +
+  tm_title("Precipitation Total Anomaly by Subbasin, 2025")
+```
 
 ### Monthly Totals  
 
@@ -162,6 +226,8 @@ tm_shape(prcp_monthly_in) +
 
 This may be too many subdivisions to try and summarize. Here's what things look like averaged to the HUC8 level though, which will keep it simpler and make it easier to make comparisons to historical data.  
 
+#### Averaged to HUC8  
+
 
 ```{r}
 # make a spat vector of huc8s for summaries
@@ -193,6 +259,181 @@ tm_shape(prcp_huc8_avg) +
 ```
 
 May seems to have been the wettest month in 2025, and that's not really typical - actually in the climate normals (see them [here](https://msepcharacterization.netlify.app/precipitation#monthly-totals-30-year-normal)), the color scale only goes up to 8.5 inches per month, and May 2025 exceeded that.  
+
+### Monthly Anomalies  
+
+From long-term climate normals, as provided by the PRISM Climate Group at Oregon State University and processed into the `msepBaselineData` package's `precip_normals_huc8avg` dataset.  
+
+```{r}
+# Pull attributes out of the SpatVector as a plain data frame (drop geometry for the join)
+huc8_2025 <- as.data.frame(prcp_huc8_avg) %>%
+  select(huc8, Jan.2025:Dec.2025) %>%
+  pivot_longer(-huc8, names_to = "month", values_to = "precip_2025") %>%
+  mutate(month = sub("\\..*", "", month))   # "Jan.2025" -> "Jan"
+
+normals_long <- precip_normals_huc8avg %>%
+  st_drop_geometry() %>%
+  select(huc8, basin_name, subbasin_name, Jan:Dec) %>%
+  pivot_longer(-c(huc8, basin_name, subbasin_name), 
+               names_to = "month", 
+               values_to = "normal")
+
+anomalies <- normals_long %>%
+  left_join(huc8_2025, by = c("huc8", "month")) %>%
+  mutate(anomaly = precip_2025 - normal)
+```
+
+```{r}
+anomalies_wide <- anomalies %>%
+  select(huc8:month, anomaly) %>%
+  pivot_wider(names_from = month, values_from = anomaly)
+
+# reorder columns to calendar order (pivot_wider alphabetizes otherwise)
+month_order <- c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
+anomalies_wide <- anomalies_wide %>% select(huc8, basin_name, subbasin_name, all_of(month_order))
+
+# attach to polygon geometry (attribute join, not spatial join)
+prcp_anomaly_sv <- terra::merge(prcp_huc8_avg[, "huc8"], anomalies_wide, by = "huc8")
+```
+
+```{r}
+month_cols <- names(prcp_anomaly_sv)
+month_cols <- month_cols[!(month_cols %in% c("huc8", "basin_name", "subbasin_name"))]
+
+# make the scale symmetric around 0 so the diverging midpoint is meaningful
+max_abs <- max(abs(as.data.frame(prcp_anomaly_sv)[, month_cols]), na.rm = TRUE)
+
+tmap_mode("plot")
+tm_shape(prcp_anomaly_sv) +
+  tm_basemap("CartoDB.Positron") +
+  tm_polygons(fill = month_cols,
+              fill.scale = tm_scale(values = "brewer.rd_bu",
+                                     midpoint = 0,
+                                     limits = c(-max_abs, max_abs)),
+              fill_alpha = 0.8,
+              fill.free = FALSE,
+              fill.legend = tm_legend(title = "inches\n(2025 - normal)",
+                                      position = tm_pos_out("right")),
+              col = "black",
+              lwd = 2) +
+  tm_facets(ncol = 4, nrow = 3) +
+  tm_title("Precipitation Anomaly by Month, 2025")
+```
+
+### Table of Anomalies  
+
+```{r}
+month_order <- c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
+
+monthly_wide <- anomalies %>%
+  select(huc8, basin_name, subbasin_name, month, anomaly) %>%
+  pivot_wider(names_from = month, values_from = anomaly) %>%
+  select(huc8, basin_name, subbasin_name, all_of(month_order))
+
+anomaly_table <- monthly_wide %>%
+  left_join(annual_anomaly %>% 
+              select(huc8, Annual = anomaly), by = "huc8") %>%
+  mutate(across(all_of(c(month_order, "Annual")), ~ round(.x, 2))) %>% 
+  select(huc8, basin_name, subbasin_name, Annual, all_of(month_order)) |> 
+  arrange(basin_name, huc8)
+```
+
+
+```{r}
+if (out_format == "html") {
+  #### reactable version
+  
+  month_max_abs <- max(abs(as.matrix(anomaly_table[, month_order])), na.rm = TRUE)
+  annual_max_abs <- max(abs(anomaly_table$Annual), na.rm = TRUE)
+  
+  month_pal <- col_numeric(
+    palette = c("#B2182B", "#F7F7F7", "#2166AC"),
+    domain = c(-month_max_abs, month_max_abs)
+  )
+  
+  annual_pal <- col_numeric(
+    palette = c("#B2182B", "#F7F7F7", "#2166AC"),
+    domain = c(-annual_max_abs, annual_max_abs)
+  )
+  
+  # Text color: switch to near-white once a cell is dark enough to need it
+  # user can modify the threshold value - I played with 0.65 and 0.7
+  # and black over those was just too hard to read; 0.6 seems like a good changepoint to white
+  text_color <- function(value, max_abs, threshold = 0.6) {
+    if (is.na(value)) return("black")
+    frac <- abs(value) / max_abs   # 0 (near zero) -> 1 (extreme)
+    if (frac > threshold) "#F7F7F7" else "black"
+  }
+  
+  anomaly_colDef <- function(pal, max_abs) {
+    colDef(
+      style = function(value) {
+        if (is.na(value)) return(list())
+        list(
+          background = pal(value),
+          color = text_color(value, max_abs)
+        )
+      },
+      format = colFormat(digits = 2)
+    )
+  }
+  
+  # function so annual anomaly has vertical borders
+  anomaly_colDef_annual <- function(pal, max_abs) {
+    colDef(
+      style = function(value) {
+        base <- if (is.na(value)) list() else list(
+          background = pal(value),
+          color = text_color(value, max_abs)
+        )
+        c(base, list(
+          borderLeft = "2px solid #4D4D4D",
+          borderRight = "2px solid #4D4D4D"
+        ))
+      },
+      format = colFormat(digits = 2)
+    )
+  }
+  
+  ### TABLE ITSELF ###
+  
+  reactable(
+    anomaly_table,
+    striped = FALSE,
+    sortable = TRUE,
+    groupBy = "basin_name",
+    columns = c(
+      list(
+        huc8 = colDef(name = "HUC8", sticky = "left"),
+        basin_name = colDef(name = "Basin", sticky = "left"),
+        subbasin_name = colDef(name = "Subbasin", sticky = "left"),
+        Annual = anomaly_colDef_annual(annual_pal, annual_max_abs)
+      ),
+      setNames(
+        lapply(month_order, function(x) anomaly_colDef(month_pal, month_max_abs)),
+        month_order
+      )
+    ),
+    defaultColDef = colDef(align = "center"),
+    defaultPageSize = 14
+  )
+  
+  
+} else {
+  # static knitr::kable version
+  anomaly_table_pdf <- anomaly_table %>%
+    select(basin_name, subbasin_name, huc8, Annual, all_of(month_order))
+  
+  kable(anomaly_table_pdf,
+        col.names = c("Basin", "HUC8", "Subbasin", "Annual", month_order),
+        digits = 2,
+        caption = "Precipitation Anomalies by Subbasin, 2025 (inches)") %>%
+    kable_styling(latex_options = c("striped", "scale_down"),
+                  full_width = FALSE) %>%
+    collapse_rows(columns = 1, valign = "middle")
+}
+
+```
 
 
 
