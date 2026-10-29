@@ -13,7 +13,7 @@ load(here::here("data",
 # render the maps interactively or statically
 out_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
-if (out_format == "html") {
+if (is.null(out_format) || out_format == "html") {
   message("Setting tmap mode to 'view'")
   tmap_mode("view")
 } else {
@@ -59,7 +59,7 @@ summ_2025 <- beach_advisories_2025 |>
             days_per_advs_mean = round(mean(days_in_2025)),
             days_per_advs_max = max(days_in_2025)) |> 
   full_join(MDEQ_beach_stations,
-            by = c("station" = "DEQStation")) |> 
+            by = c("station" = "DEQStationID")) |> 
   mutate(n_advs = case_when(is.na(n_advs) ~ 0,
                             .default = n_advs),
          days_advs_2025 = case_when(is.na(days_advs_2025) ~ 0,
@@ -70,14 +70,31 @@ summ_2025 <- beach_advisories_2025 |>
 
 
 ```{r}
-tm_shape(summ_2025) +
-  tm_basemap("CartoDB.Positron") +
-  tm_bubbles(size = "days_advs_2025",
-             scale = 1.3,
-             col = "brown",
-             alpha = 0.6,
-             # col = "white",
-             title.size = "Total Days under Advisory in 2025")
+# using tmap v3 code
+# m1 <- tm_shape(summ_2025) +
+#   tm_basemap() +
+#   tm_bubbles(size = "days_advs_2025",
+#              scale = 1.3,
+#              col = "brown",
+#              fill_alpha = 0.6,
+#              # col = "white",
+#              title.size = "Total Days under Advisory in 2025")
+
+# updated for tmap v4
+m1 <- tm_shape(summ_2025) +
+  tm_basemap() +
+  tm_bubbles(
+    size = "days_advs_2025",
+    size.scale = tm_scale_continuous(values.scale = 1.3),
+    size.legend = tm_legend(
+      title = "Total Days under Advisory in 2025",
+      orientation = "landscape"
+      ),
+    fill = "brown",
+    fill_alpha = 0.6
+  )
+
+tmap_hydro(m1)
 ```
 
 
