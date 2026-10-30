@@ -115,6 +115,7 @@ ggplot(precip_yearly_huc8avg,
 ### Annual Anomalies  
 
 Because the climate normal on the coast is upwards of 60 inches, and it looks like the coast was in the mid-50s range in 2025, which is a little drier than normal. Climate normals in the northern part of the watershed are in the mid-to-upper 50s so they look about typical for 2025. I'm eyeballing here and the color scale is slightly different, but see the [MSEP Characterization chapter on precipitation](https://msepcharacterization.netlify.app/precipitation) for the details I have compiled in the past (climate normals from NCEI).  
+
 #### Map  
 
 ```{r}
