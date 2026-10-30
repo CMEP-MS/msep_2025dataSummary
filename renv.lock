@@ -3011,15 +3011,14 @@
       ],
       "URL": "https://github.com/CMEP-MS/msepBaselineData",
       "BugReports": "https://github.com/CMEP-MS/msepBaselineData/issues",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "msepBaselineData",
-      "RemoteUsername": "CMEP-MS",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "26fb8f4caae3c07748288473dfb0bd83d27783ed",
-      "NeedsCompilation": "no",
       "Author": "Kim Cressman [aut, cre]",
-      "Maintainer": "Kim Cressman <kc2741@msstate.edu>"
+      "Maintainer": "Kim Cressman <kc2741@msstate.edu>",
+      "RemoteType": "github",
+      "RemoteUsername": "CMEP-MS",
+      "RemoteRepo": "msepBaselineData",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "942c88b02e37ea87a4087ee70057ad63622d72ed",
+      "RemoteHost": "api.github.com"
     },
     "msepBoundaries": {
       "Package": "msepBoundaries",
