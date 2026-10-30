@@ -40,6 +40,19 @@ if(is.null(out_format)){
 # at this point it's only the annual totals, averaged to HUC8,
 # that I want to allow to be interactive. Everything else will be plot mode.
 
+
+# define colors and shapes for ggplots
+# 1. Define distinct colors for your 3 basins (replace keys with your actual basin names)
+basin_palette <- c(
+  "Coastal Streams" = "#583a55",
+  "Pascagoula River" = "#d26c3a",
+  "Pearl River" = "#82acb2"
+)
+
+# 2. 8 high-contrast shape codes (16:circle, 17:triangle, 18:diamond, 15:square, 25:down triangle, 8:star, 3:plus, 4:cross)
+shape_palette <- c(16, 17, 18, 15, 25, 8, 3, 4)
+
+
 ```
 
 ## Overall Summary  
@@ -110,6 +123,8 @@ ggplot(precip_yearly_huc8avg,
   labs(x = "Year",
        y = "Total Precipitation (inches)")
 ```
+
+
 
 
 ### Annual Anomalies  
@@ -264,6 +279,86 @@ if (knitr::is_html_output()) {
 } else {
   p
 }
+```
+
+
+#### Boxplot time series  
+
+Each box represents a single year; overlaid points represent subbasins.  
+
+```{r}
+# more formatting, based on data frame and the colors/shapes defined above
+
+
+# 3. Build the lookup table dataframe
+style_lookup <- anoms_ts %>%
+  distinct(basin_name, subbasin_name) %>%
+  arrange(basin_name, subbasin_name) %>%
+  group_by(basin_name) %>%
+  mutate(
+    color = basin_palette[basin_name],
+    shape = shape_palette[1:n()]  # Restarts shape sequence (1, 2, 3...) for each basin group
+  ) %>%
+  ungroup()
+
+# 4. Create named vectors for ggplot scales
+subbasin_colors <- setNames(style_lookup$color, style_lookup$subbasin_name)
+subbasin_shapes <- setNames(style_lookup$shape, style_lookup$subbasin_name)
+
+
+# get things in a good order for the legend
+ordered_subbasins <- style_lookup %>% 
+  arrange(basin_name, subbasin_name) %>% 
+  pull(subbasin_name)
+
+# 2. Convert subbasin_name in your dataset to a factor with this specific order
+anoms_ts <- anoms_ts %>%
+  mutate(subbasin_name = factor(subbasin_name, levels = ordered_subbasins))
+```
+
+
+```{r}
+#| label: fig-boxplotPrcpPctDiffColors
+#| fig-cap: "Boxplot representing the distribution of rainfall totals by subbasin by year. Each box represents a year; each overlaid point represents a subbasin. Each color represents a basin, with shapes within colors representing the subbasins. Whiskers extend to the quantiles +/- 1.5 times the IQR."
+
+ggplot(anoms_ts,
+       aes(x = as.factor(year),
+           y = pct_diff_from_normal)) +
+  geom_hline(yintercept = 0) +
+  geom_boxplot() +
+  geom_point(aes(col = subbasin_name,
+                 shape = subbasin_name),
+             size = 1.5,
+             stroke = 0.8,
+             alpha = 0.7) +
+  scale_color_manual(values = subbasin_colors, breaks = ordered_subbasins) +
+  scale_shape_manual(values = subbasin_shapes, breaks = ordered_subbasins) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45,
+                                   hjust = 1)) +
+  labs(x = "Year", 
+       y = "% difference from normal",
+       col = "Subbasin",
+       shape = "Subbasin")
+```
+
+Here is the same plot, but all points are the same color so it's simpler.  
+
+```{r}
+#| label: fig-boxplotPrcpPctDiffBW
+#| fig-cap: "Boxplot representing the distribution of rainfall totals by subbasin by year. Each box represents a year; each overlaid point represents a subbasin.  Whiskers extend to the quantiles +/- 1.5 times the IQR."
+
+ggplot(anoms_ts,
+       aes(x = as.factor(year),
+           y = pct_diff_from_normal)) +
+  geom_hline(yintercept = 0) +
+  geom_boxplot() +
+  geom_point(alpha = 0.5) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45,
+                                   hjust = 1)) +
+  labs(x = "Year", 
+       y = "% difference from normal")
 ```
 
 
