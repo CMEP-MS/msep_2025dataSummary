@@ -25,16 +25,7 @@ prcp_monthly_in <- prcp_monthly / 25.4
 prcp_annual_in <- sum(prcp_monthly_in, na.rm = TRUE)
 
 
-
-# render the maps interactively or statically
-out_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
-
-# if it's an interactive session, out_format will be NULL from the above command, so do things the html way
-if(is.null(out_format)){
-  out_format <- "html"
-}
-
-
+# map options
 # moving the actual ifelse statements before the maps that I do want to be interactive
 # because making the faceted ones interactive is not good
 # at this point it's only the annual totals, averaged to HUC8,
@@ -52,23 +43,32 @@ basin_palette <- c(
 # 2. 8 high-contrast shape codes (16:circle, 17:triangle, 18:diamond, 15:square, 25:down triangle, 8:star, 3:plus, 4:cross)
 shape_palette <- c(16, 17, 18, 15, 25, 8, 3, 4)
 
+```
 
+```{r}
+# render the maps interactively or statically
+out_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+
+# if it's an interactive session, out_format will be NULL from the above command, so do things the html way
+if(is.null(out_format)){
+  out_format <- "html"
+}
 ```
 
 ## Overall Summary  
 
-2025 was normal-to-dry across the MSEP watershed, with annual total precipitation within 5% of the 30-year average in 4 of the 14 subbasins, and 10-18% lower than normal in the other 8 subbasins. See @fig-precipPctDiff and @fig-mapPrcpAnnualAnoms in particular.    
+2025 was normal-to-dry across the MSEP watershed, with annual total precipitation within 5% of the 30-year average in 5 of the 14 subbasins, and 10-20% lower than normal in the other 9 subbasins. The subbasins that were driest were generally in the southern portions of the watershed, whereas the more northern subbasins were closer to the long-term average. See @fig-mapPrcpTotalAndAnomPct and @fig-precipPctDiff in particular for details.    
 
 
 ## Supporting Information  
 
 
-### Annual Totals, Averaged to HUC8  
+### Annual Precipitation, Averaged to HUC8    
 
 Annual totals were calculated from monthly precipitation data obtained from the PRISM Group at Oregon State University, https://prism.oregonstate.edu which were accessed 29 July 2026.  
 
 
-#### Map  
+#### Maps  
 
 ```{r}
 # make a spat vector of huc8s for summaries
@@ -78,18 +78,12 @@ prcp_huc8_avg.ann <- extract(prcp_annual_in, huc8_vect, fun = mean, na.rm = TRUE
 ```
 
 ```{r}
-#| label: fig-mapPrcpAnnualTotals
-#| fig-cap: "Map of annual precipitation total (inches), averaged to the HUC-8 (subbasin) level."
+# Annual Total, inches
 
-# allow this one to be interactive
-if (out_format == "html") {
-  message("Setting tmap mode to 'view'")
-  tmap_mode("view")
-} else {
-  message("Setting tmap mode to 'plot'")
-  tmap_mode("plot")
-}
+# make map in plot mode so it stays a tmap object and
+# can be used in tmap_arrange to be displayed with other maps
 
+tmap_mode("plot")
 
 m3 <- tm_shape(prcp_huc8_avg.ann) +
   tm_basemap() +
@@ -100,40 +94,15 @@ m3 <- tm_shape(prcp_huc8_avg.ann) +
               fill.legend = tm_legend(title = "inches",
                                       position = tm_pos_out("right")),
               col = "black",  # polygon outline color
-              lwd = 2) +
-  tm_title("Precipitation Total by Subbasin, 2025")
+              lwd = 2) 
 
-tmap_hydro(m3)
+m3b <- tmap_hydro(m3)
 ```
 
-#### Time Series Graph  
-
-How does 2025 compare to past years? This graph uses data compiled in the `msepBaselineData` package.  
-
 ```{r}
-#| label: fig-tsPrcpAnnualTotals
-#| fig-cap: "Time series of annual precipitation total (inches) by HUC-8 (subbasin). Each line represents a subbasin."
+# Calculate anomalies for 2025
 
 
-ggplot(precip_yearly_huc8avg,
-       aes(x = year, y = prcp_inches,
-           group = subbasin_name)) +
-  geom_line(col = "gray40") +
-  theme_bw() +
-  labs(x = "Year",
-       y = "Total Precipitation (inches)")
-```
-
-
-
-
-### Annual Anomalies  
-
-Because the climate normal on the coast is upwards of 60 inches, and it looks like the coast was in the mid-50s range in 2025, which is a little drier than normal. Climate normals in the northern part of the watershed are in the mid-to-upper 50s so they look about typical for 2025. I'm eyeballing here and the color scale is slightly different, but see the [MSEP Characterization chapter on precipitation](https://msepcharacterization.netlify.app/precipitation) for the details I have compiled in the past (climate normals from NCEI).  
-
-#### Map  
-
-```{r}
 # Pull annual normal and annual 2025 total into a plain data frame
 annual_2025 <- as.data.frame(prcp_huc8_avg.ann) %>%
   select(huc8, sum)
@@ -144,52 +113,20 @@ annual_normal <- precip_normals_huc8avg %>%
 
 annual_anomaly <- annual_normal %>%
   left_join(annual_2025, by = "huc8") %>%
-  mutate(anomaly = sum - Annual)
+  mutate(anomaly = sum - Annual,
+         pct_of_normal = sum / Annual * 100,
+         diff_from_normal = pct_of_normal - 100)
 
 # Attach back to geometry for mapping
 prcp_anomaly_ann_sv <- terra::merge(prcp_huc8_avg.ann[, "huc8"], 
-                              annual_anomaly[, c("huc8", "basin_name", "subbasin_name", "anomaly")], 
+                              annual_anomaly[, c("huc8", "basin_name", "subbasin_name", "anomaly", "pct_of_normal", "diff_from_normal")], 
                               by = "huc8")
 ```
 
 ```{r}
-#| label: fig-mapPrcpAnnualAnoms
-#| fig-cap: "Map of 2025 differences from 30-year average precipitation, in inches, averaged to the HUC-8 (subbasin) level. Darker colors indicate totals further from the long-term average."
+# Anomaly Time Series
 
 
-max_abs <- max(abs(as.data.frame(prcp_anomaly_ann_sv)$anomaly), na.rm = TRUE)
-
-# allow this one to be interactive
-if (out_format == "html") {
-  message("Setting tmap mode to 'view'")
-  tmap_mode("view")
-} else {
-  message("Setting tmap mode to 'plot'")
-  tmap_mode("plot")
-}
-
-
-m4 <- tm_shape(prcp_anomaly_ann_sv) +
-  tm_basemap() +
-  tm_polygons(fill = "anomaly",
-              fill.scale = tm_scale(values = "brewer.rd_bu",
-                                     midpoint = 0,
-                                     limits = c(-max_abs, max_abs)),
-              fill_alpha = 0.8,
-              fill.free = FALSE,
-              fill.legend = tm_legend(title = "inches\n(2025 - normal)",
-                                      position = tm_pos_out("right")),
-              col = "black",
-              lwd = 2) +
-  tm_title("Precipitation Total Anomaly by Subbasin, 2025")
-
-tmap_hydro(m4)
-```
-
-
-#### Time Series Graph  
-
-```{r}
 # first make the time series of anomalies
 norms <- precip_normals_huc8avg |> 
   sf::st_drop_geometry() |> 
@@ -203,28 +140,127 @@ anoms_ts <- precip_yearly_huc8avg |>
          pct_diff_from_normal = pct_of_normal - 100)
 ```
 
-
 ```{r}
-#| label: fig-tsAnnualAnoms
-#| fig-cap: "Time series of annual anomalies (difference between that year and the 30-year climate normal, in inches) by HUC-8 (subbasin). Each line represents a subbasin."
+# make anomaly maps in plot mode
+max_abs <- max(abs(as.data.frame(prcp_anomaly_ann_sv)$anomaly), na.rm = TRUE)
+max_pct <- max(abs(as.data.frame(prcp_anomaly_ann_sv)$pct_of_normal), na.rm = TRUE)
+
+tmap_mode("plot")
+
+# # anomaly in inches
+# m4 <- tm_shape(prcp_anomaly_ann_sv) +
+#   tm_basemap() +
+#   tm_polygons(fill = "anomaly",
+#               fill.scale = tm_scale(values = "brewer.rd_bu",
+#                                      midpoint = 0,
+#                                      limits = c(-max_abs, max_abs)),
+#               fill_alpha = 0.8,
+#               fill.free = FALSE,
+#               fill.legend = tm_legend(title = "inches\n(2025 - normal)",
+#                                       position = tm_pos_out("right")),
+#               col = "black",
+#               lwd = 2) +
+#   tm_title("Precipitation Total Anomaly by Subbasin, 2025")
+# 
+# m4b <- tmap_hydro(m4)
 
 
-ggplot(anoms_ts,
-       aes(x = year, y = anomaly,
-           group = subbasin_name)) +
-  geom_hline(yintercept = 0, col = "gray20") +
-  geom_line(col = "gray40") +
-  theme_bw() +
-  labs(x = "Year",
-       y = "Difference from normal (inches)")
+# precip as % of normal
+m41 <- tm_shape(prcp_anomaly_ann_sv) +
+  tm_basemap() +
+  tm_polygons(fill = "diff_from_normal",
+              fill.scale = tm_scale(values = "brewer.rd_bu",
+                                     midpoint = 0,
+                                     limits = c(-max_pct, max_pct)),
+              fill_alpha = 0.8,
+              fill.free = FALSE,
+              fill.legend = tm_legend(title = "% difference \nfrom normal",
+                                      position = tm_pos_out("right")),
+              col = "black",
+              lwd = 2) 
+
+m41b <- tmap_hydro(m41)
 ```
 
-The y-axis may not be that meaningful if you don't already know that the annual normal amount is around 60 inches. So let's look at the difference as a percent. 
+```{r}
+#| label: fig-mapPrcpTotalAndAnomPct
+#| fig-cap: "Maps of 2025 precipitation, averaged to the HUC8 level. Left: Total precipitation, inches. Right: Difference from normal precipitation, as a percent (e.g. -5% means precipitation was 5% lower than normal). Darker colors indicate values further from the long-term average (blue = more precipitation than normal; red = less)."
 
-From this 20-year time series, we can see that generally things tend to be similar (compared to normal) across all the HUC8s in the watershed. Some years have more variability, like 2019 and 2020. We had a fairly long stretch from 2012-2021 or so where it generally was normal to wetter-than-normal. 2025 was generally drier than normal across the watershed; drier in some HUC8s than others. As seen from the map, the southern counties were the ones that generally were much drier than normal.  
+# allow this one to be interactive
+if (out_format == "html") {
+  message("Setting tmap mode to 'view'")
+  tmap_mode("view")
+} else {
+  message("Setting tmap mode to 'plot'")
+  tmap_mode("plot")
+}
+
+tmap_arrange(m3b, m41b, sync = TRUE)
+```
 
 
-#### Interactive time series  
+
+#### Time Series Graphs  
+
+In the HTML version of this document, the following time series graphs are interactive. Hovering over a line shows which subbasin it represents, and hovering over a point shows more information about the yearly total.
+
+##### Total Precipitation  
+
+```{r}
+# 1. Build an HTML tooltip column containing all dataframe variables
+precip_yearly_huc8avg$tooltip_txt <- sprintf(
+  "<b>Basin:</b> %s<br><b>Subbasin:</b> %s<br><b>Year:</b> %d<br><b>Precip Total:</b> %.1f",
+  precip_yearly_huc8avg$basin_name,
+  precip_yearly_huc8avg$subbasin_name,
+  precip_yearly_huc8avg$year,
+  precip_yearly_huc8avg$prcp_inches
+)
+```
+
+
+```{r}
+#| label: fig-tsPrcpAnnualTotals
+#| fig-cap: "Time series of annual precipitation total (inches) by HUC-8 (subbasin). Each line represents a subbasin."
+
+p <- ggplot(precip_yearly_huc8avg,
+       aes(x = year, y = prcp_inches,
+           group = subbasin_name)) +
+  # Interactive line (shows subbasin_name on line hover)
+  geom_line_interactive(
+    aes(data_id = subbasin_name, tooltip = subbasin_name),
+    col = "gray40",
+    linewidth = 0.7,
+    alpha = 0.7
+  ) +
+  # Interactive points (shows full data frame column details on point hover)
+  geom_point_interactive(
+    aes(data_id = subbasin_name, tooltip = tooltip_txt),
+    size = 0.1,
+    col = "gray40"
+  ) +
+  theme_bw() +
+  labs(x = "Year", y = "Precipitation Total (inches)")
+
+
+if (knitr::is_html_output()) {
+  girafe(
+    ggobj = p,
+    options = list(
+    # Styling for the hovered line & points
+    opts_hover(css = "stroke: #0072B2; stroke-width: 2.5px; fill: none; r: 4px; cursor: pointer;"),
+    # Styling for non-hovered lines (fades them out)
+    opts_hover_inv(css = "opacity: 0.15;"),
+    # Tooltip styling
+    opts_tooltip(css = "background-color: white; color: black; padding: 8px; border-radius: 4px; box-shadow: 2px 2px 6px rgba(0,0,0,0.2); font-family: sans-serif; font-size: 12px;")
+  )
+  )
+} else {
+  p
+}
+```
+
+
+##### Precip as % of normal  
 
 ```{r}
 # 1. Build an HTML tooltip column containing all dataframe variables
@@ -242,7 +278,7 @@ anoms_ts$tooltip_txt <- sprintf(
 
 ```{r}
 #| label: fig-precipPctDiff
-#| fig-cap: "Time series of differences from 30-year average precipitation, by HUC-8 (subbasin). Each line represents a subbasin. In the HTML version of this document, hovering over a line shows which subbasin it represents, and hovering over a point shows the precipitation total and anomaly for that year in the subbasin."
+#| fig-cap: "Time series of differences from 30-year average precipitation, by HUC-8 (subbasin). Each line represents a subbasin."
 
 
 p <- ggplot(anoms_ts, aes(x = year, y = pct_diff_from_normal, group = subbasin_name)) +
@@ -282,7 +318,7 @@ if (knitr::is_html_output()) {
 ```
 
 
-#### Boxplot time series  
+##### Boxplot time series  
 
 Each box represents a single year; overlaid points represent subbasins.  
 
@@ -318,6 +354,26 @@ anoms_ts <- anoms_ts %>%
 
 
 ```{r}
+#| label: fig-boxplotPrcpPctDiffBW
+#| fig-cap: "Boxplot representing the distribution of rainfall totals by subbasin by year. Each box represents a year; each overlaid point represents a subbasin.  Whiskers extend to the quantiles +/- 1.5 times the IQR."
+
+ggplot(anoms_ts,
+       aes(x = as.factor(year),
+           y = pct_diff_from_normal)) +
+  geom_hline(yintercept = 0) +
+  geom_boxplot() +
+  geom_point(alpha = 0.5) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45,
+                                   hjust = 1)) +
+  labs(x = "Year", 
+       y = "% difference from normal")
+```
+
+
+Here is the same plot, but with points identifiable to subbasin.
+
+```{r}
 #| label: fig-boxplotPrcpPctDiffColors
 #| fig-cap: "Boxplot representing the distribution of rainfall totals by subbasin by year. Each box represents a year; each overlaid point represents a subbasin. Each color represents a basin, with shapes within colors representing the subbasins. Whiskers extend to the quantiles +/- 1.5 times the IQR."
 
@@ -342,27 +398,9 @@ ggplot(anoms_ts,
        shape = "Subbasin")
 ```
 
-Here is the same plot, but all points are the same color so it's simpler.  
-
-```{r}
-#| label: fig-boxplotPrcpPctDiffBW
-#| fig-cap: "Boxplot representing the distribution of rainfall totals by subbasin by year. Each box represents a year; each overlaid point represents a subbasin.  Whiskers extend to the quantiles +/- 1.5 times the IQR."
-
-ggplot(anoms_ts,
-       aes(x = as.factor(year),
-           y = pct_diff_from_normal)) +
-  geom_hline(yintercept = 0) +
-  geom_boxplot() +
-  geom_point(alpha = 0.5) +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 45,
-                                   hjust = 1)) +
-  labs(x = "Year", 
-       y = "% difference from normal")
-```
 
 
-### Monthly Totals  
+### Monthly Precipitation  
 
 Monthly data are from the PRISM Group at Oregon State University, https://prism.oregonstate.edu and were accessed 29 July 2026. They are again averaged to HUC8.
 
