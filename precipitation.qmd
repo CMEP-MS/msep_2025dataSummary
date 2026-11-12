@@ -57,7 +57,11 @@ if(is.null(out_format)){
 
 ## Overall Summary  
 
-2025 was normal-to-dry across the MSEP watershed, with annual total precipitation within 5% of the 30-year average in 5 of the 14 subbasins, and 10-20% lower than normal in the other 9 subbasins. The subbasins that were driest were generally in the southern portions of the watershed, whereas the more northern subbasins were closer to the long-term average. See @fig-mapPrcpTotalAndAnomPct and @fig-precipPctDiff in particular for details.    
+2025 was normal-to-dry across the MSEP watershed. In terms of the annual total precipitation received, about 1/3 of the subbasins were within 5% of the 30-year average total. The others ranged about 10-20% lower for their annual totals. The subbasins that were driest were generally in the southern portions of the watershed, whereas the more northern subbasins were closer to the long-term average. See @fig-mapPrcpTotalAndAnomPct and @fig-precipPctDiff in particular for details. 
+
+In terms of monthly totals, May was a little bit wet, particularly in the middle portion of the watershed, and the dry months were September and November. See @fig-mapPrcpMonthlyAnoms.
+
+For a summary table of annual and monthly totals, normals, and % difference from normal, see @tbl-prcpAnoms.
 
 
 ## Supporting Information  
@@ -147,31 +151,14 @@ max_pct <- max(abs(as.data.frame(prcp_anomaly_ann_sv)$pct_of_normal), na.rm = TR
 
 tmap_mode("plot")
 
-# # anomaly in inches
-# m4 <- tm_shape(prcp_anomaly_ann_sv) +
-#   tm_basemap() +
-#   tm_polygons(fill = "anomaly",
-#               fill.scale = tm_scale(values = "brewer.rd_bu",
-#                                      midpoint = 0,
-#                                      limits = c(-max_abs, max_abs)),
-#               fill_alpha = 0.8,
-#               fill.free = FALSE,
-#               fill.legend = tm_legend(title = "inches\n(2025 - normal)",
-#                                       position = tm_pos_out("right")),
-#               col = "black",
-#               lwd = 2) +
-#   tm_title("Precipitation Total Anomaly by Subbasin, 2025")
-# 
-# m4b <- tmap_hydro(m4)
-
-
 # precip as % of normal
 m41 <- tm_shape(prcp_anomaly_ann_sv) +
   tm_basemap() +
   tm_polygons(fill = "diff_from_normal",
               fill.scale = tm_scale(values = "brewer.rd_bu",
                                      midpoint = 0,
-                                     limits = c(-max_pct, max_pct)),
+                                     limits = c(-max_pct, max_pct),
+                                    label.format = list(fun = function(x) sprintf("%+g%%", x), digits = 0, text.separator = "to")),
               fill_alpha = 0.8,
               fill.free = FALSE,
               fill.legend = tm_legend(title = "% difference \nfrom normal",
@@ -260,7 +247,7 @@ if (knitr::is_html_output()) {
 ```
 
 
-##### Precip as % of normal  
+##### Precip difference from normal, as a percent  
 
 ```{r}
 # 1. Build an HTML tooltip column containing all dataframe variables
@@ -402,7 +389,7 @@ ggplot(anoms_ts,
 
 ### Monthly Precipitation  
 
-Monthly data are from the PRISM Group at Oregon State University, https://prism.oregonstate.edu and were accessed 29 July 2026. They are again averaged to HUC8.
+Monthly data are from the PRISM Group at Oregon State University, https://prism.oregonstate.edu and were accessed 29 July 2026. They are again averaged to HUC8. Monthly normals are also from the PRISM group, and were compiled in the [`msepBaselineData`](https://github.com/CMEP-MS/msepBaselineData) R package.
 
 ```{r}
 # make a spat vector of huc8s for summaries
@@ -440,7 +427,7 @@ tmap_hydro(m7)
 
 May seems to have been the wettest month in 2025, and that's not really typical - actually in the climate normals (see them [here](https://msepcharacterization.netlify.app/precipitation#monthly-totals-30-year-normal)), the color scale only goes up to 8.5 inches per month, and May 2025 exceeded that.  
 
-### Monthly Anomalies  
+#### Monthly Anomalies  
 
 From long-term climate normals, as provided by the PRISM Climate Group at Oregon State University and processed into the `msepBaselineData` package's `precip_normals_huc8avg` dataset.  
 
@@ -460,13 +447,16 @@ normals_long <- precip_normals_huc8avg %>%
 
 anomalies <- normals_long %>%
   left_join(huc8_2025, by = c("huc8", "month")) %>%
-  mutate(anomaly = precip_2025 - normal)
+  mutate(anomaly = precip_2025 - normal,
+         pct_of_normal = precip_2025 / normal * 100,
+         pct_diff_from_normal = pct_of_normal - 100)
 ```
 
 ```{r}
+# anomalies wide now contains % diff from normal, not raw anomaly
 anomalies_wide <- anomalies %>%
-  select(huc8:month, anomaly) %>%
-  pivot_wider(names_from = month, values_from = anomaly)
+  select(huc8:month, pct_diff_from_normal) %>%
+  pivot_wider(names_from = month, values_from = pct_diff_from_normal)
 
 # reorder columns to calendar order (pivot_wider alphabetizes otherwise)
 month_order <- c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
@@ -478,7 +468,7 @@ prcp_anomaly_sv <- terra::merge(prcp_huc8_avg[, "huc8"], anomalies_wide, by = "h
 
 ```{r}
 #| label: fig-mapPrcpMonthlyAnoms
-#| fig-cap: "Map of monthly precipitation anomalies (difference from 30-year climate normals, in inches), averaged to the HUC-8 (subbasin) level."
+#| fig-cap: "Map of monthly precipitation difference from normal, as a percent (i.e. '-10' can be read as '10% below normal'), averaged to the HUC-8 (subbasin) level."
 
 month_cols <- names(prcp_anomaly_sv)
 month_cols <- month_cols[!(month_cols %in% c("huc8", "basin_name", "subbasin_name"))]
@@ -492,10 +482,11 @@ m8 <- tm_shape(prcp_anomaly_sv) +
   tm_polygons(fill = month_cols,
               fill.scale = tm_scale(values = "brewer.rd_bu",
                                      midpoint = 0,
-                                     limits = c(-max_abs, max_abs)),
+                                     limits = c(-max_abs, max_abs),
+                                     label.format = list(fun = function(x) sprintf("%+g%%", x), digits = 0, text.separator = "to")),
               fill_alpha = 0.8,
               fill.free = FALSE,
-              fill.legend = tm_legend(title = "inches\n(2025 - normal)",
+              fill.legend = tm_legend(title = "% difference \nfrom normal",
                                       position = tm_pos_out("right")),
               col = "black",
               lwd = 2) +
@@ -505,9 +496,216 @@ m8 <- tm_shape(prcp_anomaly_sv) +
 tmap_hydro(m8)
 ```
 
-### Table of Anomalies  
+#### Table of Anomalies  
 
 ```{r}
+month_order <- c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
+
+# Helper to format cells into two rows:
+# Top: 2025 total (bold in HTML)
+# Bottom: Normal (% diff from normal)
+# Note: Change %+.1f%% to %.1f%% below if you prefer not to show a '+' sign on positive values
+format_precip_cell <- function(p25, norm, pct_diff, html = TRUE) {
+  ifelse(
+    is.na(p25) | is.na(norm) | is.na(pct_diff),
+    NA_character_,
+    if (html) {
+      sprintf(
+        "<b>%.1f</b><br><span style='font-size: 0.85em;'>%.1f (%+.1f%%)</span>",
+        p25, norm, pct_diff
+      )
+    } else {
+      sprintf("%.1f\n%.1f (%+.1f\\%%)", p25, norm, pct_diff)
+    }
+  )
+}
+
+# Build monthly numeric % diff & formatted display columns
+monthly_prep <- anomalies %>%
+  mutate(
+    disp_html = format_precip_cell(precip_2025, normal, pct_diff_from_normal, html = TRUE),
+    disp_pdf  = format_precip_cell(precip_2025, normal, pct_diff_from_normal, html = FALSE)
+  )
+
+monthly_pct_wide <- monthly_prep %>%
+  select(huc8, basin_name, subbasin_name, month, pct_diff_from_normal) %>%
+  pivot_wider(names_from = month, values_from = pct_diff_from_normal)
+
+monthly_html_wide <- monthly_prep %>%
+  select(huc8, month, disp_html) %>%
+  pivot_wider(names_from = month, values_from = disp_html) %>%
+  rename_with(~ paste0(.x, "_html"), all_of(month_order))
+
+monthly_pdf_wide <- monthly_prep %>%
+  select(huc8, month, disp_pdf) %>%
+  pivot_wider(names_from = month, values_from = disp_pdf) %>%
+  rename_with(~ paste0(.x, "_pdf"), all_of(month_order))
+
+# Build annual numeric % diff & formatted display columns
+annual_prep <- annual_anomaly %>%
+  transmute(
+    huc8,
+    Annual_pct  = diff_from_normal,
+    Annual_html = format_precip_cell(sum, Annual, diff_from_normal, html = TRUE),
+    Annual_pdf  = format_precip_cell(sum, Annual, diff_from_normal, html = FALSE)
+  ) %>%
+  rename(Annual = Annual_pct)
+
+# Combine into final table dataset
+anomaly_table <- monthly_pct_wide %>%
+  left_join(annual_prep, by = "huc8") %>%
+  left_join(monthly_html_wide, by = "huc8") %>%
+  left_join(monthly_pdf_wide, by = "huc8") %>%
+  select(
+    huc8, basin_name, subbasin_name,
+    Annual, all_of(month_order),
+    Annual_html, all_of(paste0(month_order, "_html")),
+    Annual_pdf, all_of(paste0(month_order, "_pdf"))
+  ) %>%
+  arrange(basin_name, huc8)
+```
+
+
+```{r}
+#| label: tbl-prcpAnoms
+#| tbl-cap: "Precipitation totals and anomalies by HUC-8 for all months and the annual total of 2025 (inches). Top value in each cell is the 2025 total; bottom values are the 30-year normal followed by the percent difference from normal in parentheses. In the interactive table, clicking a month or Annual column header sorts by percent difference from normal. Cells are colored by percent difference from normal; wetter in blue and drier in red, and larger values are darker colors."
+
+
+if (out_format == "html") {
+  #### reactable version
+  
+  month_max_abs <- max(abs(as.matrix(anomaly_table[, month_order])), na.rm = TRUE)
+  annual_max_abs <- max(abs(anomaly_table$Annual), na.rm = TRUE)
+  
+  month_pal <- col_numeric(
+    palette = c("#B2182B", "#F7F7F7", "#2166AC"),
+    domain = c(-month_max_abs, month_max_abs)
+  )
+  
+  annual_pal <- col_numeric(
+    palette = c("#B2182B", "#F7F7F7", "#2166AC"),
+    domain = c(-annual_max_abs, annual_max_abs)
+  )
+  
+  # Text color: switch to near-white once a cell is dark enough to need it
+  # user can modify the threshold value - I played with 0.65 and 0.7
+  # and black over those was just too hard to read; 0.6 seems like a good changepoint to white
+  text_color <- function(value, max_abs, threshold = 0.6) {
+    if (is.na(value)) return("black")
+    frac <- abs(value) / max_abs   # 0 (near zero) -> 1 (extreme)
+    if (frac > threshold) "#F7F7F7" else "black"
+  }
+  
+anomaly_colDef <- function(col_name, pal, max_abs, is_annual = FALSE, is_jan = FALSE) {
+    html_col <- paste0(col_name, "_html")
+    
+    colDef(
+      html = TRUE,
+      # Render formatted HTML while keeping underlying values numeric for native sorting & coloring
+      cell = function(value, index) {
+        anomaly_table[[html_col]][index]
+      },
+      headerStyle = if (is_annual) {
+        list(
+          borderLeft = "2px solid #4D4D4D",
+          borderRight = "2px solid #4D4D4D"
+        )
+      } else if (is_jan) {
+        list(borderLeft = "8px solid white")
+      } else {
+        NULL
+      },
+      style = function(value) {
+        base <- if (is.na(value)) {
+          list()
+        } else {
+          list(
+            background = pal(value),
+            color = text_color(value, max_abs)
+          )
+        }
+        if (is_annual) {
+          c(base, list(
+            borderLeft = "2px solid #4D4D4D",
+            borderRight = "2px solid #4D4D4D"
+          ))
+        } else if (is_jan) {
+          c(base, list(
+            borderLeft = "8px solid white"
+          ))
+        } else {
+          base
+        }
+      }
+    )
+  }
+  
+  # Hide helper display columns from rendering
+  hidden_cols <- setNames(
+    lapply(c("Annual_html", paste0(month_order, "_html"), "Annual_pdf", paste0(month_order, "_pdf")), 
+           function(x) colDef(show = FALSE)),
+    c("Annual_html", paste0(month_order, "_html"), "Annual_pdf", paste0(month_order, "_pdf"))
+  )
+  
+  ### TABLE ITSELF ###
+  
+  reactable(
+    anomaly_table,
+    striped = FALSE,
+    sortable = TRUE,
+    groupBy = "basin_name",
+    defaultExpanded = TRUE,
+    columns = c(
+      list(
+        huc8 = colDef(name = "HUC8", sticky = "left"),
+        basin_name = colDef(
+          name = "Basin",
+          sticky = "left",
+          style = list(fontWeight = "bold")
+        ),
+        subbasin_name = colDef(
+          name = "Subbasin",
+          sticky = "left",
+          style = list(borderRight = "8px solid white"),
+          headerStyle = list(borderRight = "8px solid white")
+        ),
+        Annual = anomaly_colDef("Annual", annual_pal, annual_max_abs, is_annual = TRUE)
+      ),
+      setNames(
+        lapply(month_order, function(x) {
+          anomaly_colDef(x, month_pal, month_max_abs, is_jan = (x == "Jan"))
+        }),
+        month_order
+      ),
+      hidden_cols
+    ),
+    defaultColDef = colDef(align = "center"),
+    defaultPageSize = 20
+  )
+  
+  
+} else {
+  # static knitr::kable version
+  anomaly_table_pdf <- anomaly_table %>%
+    select(basin_name, huc8, subbasin_name, Annual_pdf, all_of(paste0(month_order, "_pdf"))) %>%
+    mutate(across(c(Annual_pdf, all_of(paste0(month_order, "_pdf"))), ~ linebreak(.x, align = "c")))
+  
+  kable(anomaly_table_pdf,
+        format = "latex",
+        booktabs = TRUE,
+        col.names = c("Basin", "HUC8", "Subbasin", "Annual", month_order),
+        escape = FALSE) %>%
+    kable_styling(latex_options = c("striped", "scale_down"),
+                  full_width = FALSE) %>%
+    collapse_rows(columns = 1, valign = "middle")
+}
+
+```
+
+```{r}
+#| eval: false
+# copy of original, before accepting gemini's modifications
+
 month_order <- c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
 
 monthly_wide <- anomalies %>%
@@ -525,8 +723,9 @@ anomaly_table <- monthly_wide %>%
 
 
 ```{r}
-#| label: tbl-prcpAnoms
-#| tbl-cap: "Precipitation anomalies by HUC-8, for all months and the annual total of 2025"
+#| eval: false
+
+# copy of original, before accepting gemini's modifications
 
 
 if (out_format == "html") {
