@@ -74,6 +74,11 @@ format:
     documentclass: scrreprt
     fig-pos: "H"
     tbl-pos: "H"
+    include-in-header:
+      text: |
+        \usepackage{pdflscape}
+        \usepackage[pass]{geometry}
+      
 
 
 crossref:

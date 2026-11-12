@@ -565,6 +565,11 @@ anomaly_table <- monthly_pct_wide %>%
   arrange(basin_name, huc8)
 ```
 
+```{=latex}
+\newgeometry{margin=0.4in}
+```
+
+::: {.landscape}
 
 ```{r}
 #| label: tbl-prcpAnoms
@@ -702,127 +707,11 @@ anomaly_colDef <- function(col_name, pal, max_abs, is_annual = FALSE, is_jan = F
 
 ```
 
-```{r}
-#| eval: false
-# copy of original, before accepting gemini's modifications
+:::
 
-month_order <- c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
-
-monthly_wide <- anomalies %>%
-  select(huc8, basin_name, subbasin_name, month, anomaly) %>%
-  pivot_wider(names_from = month, values_from = anomaly) %>%
-  select(huc8, basin_name, subbasin_name, all_of(month_order))
-
-anomaly_table <- monthly_wide %>%
-  left_join(annual_anomaly %>% 
-              select(huc8, Annual = anomaly), by = "huc8") %>%
-  mutate(across(all_of(c(month_order, "Annual")), ~ round(.x, 2))) %>% 
-  select(huc8, basin_name, subbasin_name, Annual, all_of(month_order)) |> 
-  arrange(basin_name, huc8)
+```{=latex}
+\restoregeometry
 ```
-
-
-```{r}
-#| eval: false
-
-# copy of original, before accepting gemini's modifications
-
-
-if (out_format == "html") {
-  #### reactable version
-  
-  month_max_abs <- max(abs(as.matrix(anomaly_table[, month_order])), na.rm = TRUE)
-  annual_max_abs <- max(abs(anomaly_table$Annual), na.rm = TRUE)
-  
-  month_pal <- col_numeric(
-    palette = c("#B2182B", "#F7F7F7", "#2166AC"),
-    domain = c(-month_max_abs, month_max_abs)
-  )
-  
-  annual_pal <- col_numeric(
-    palette = c("#B2182B", "#F7F7F7", "#2166AC"),
-    domain = c(-annual_max_abs, annual_max_abs)
-  )
-  
-  # Text color: switch to near-white once a cell is dark enough to need it
-  # user can modify the threshold value - I played with 0.65 and 0.7
-  # and black over those was just too hard to read; 0.6 seems like a good changepoint to white
-  text_color <- function(value, max_abs, threshold = 0.6) {
-    if (is.na(value)) return("black")
-    frac <- abs(value) / max_abs   # 0 (near zero) -> 1 (extreme)
-    if (frac > threshold) "#F7F7F7" else "black"
-  }
-  
-  anomaly_colDef <- function(pal, max_abs) {
-    colDef(
-      style = function(value) {
-        if (is.na(value)) return(list())
-        list(
-          background = pal(value),
-          color = text_color(value, max_abs)
-        )
-      },
-      format = colFormat(digits = 2)
-    )
-  }
-  
-  # function so annual anomaly has vertical borders
-  anomaly_colDef_annual <- function(pal, max_abs) {
-    colDef(
-      style = function(value) {
-        base <- if (is.na(value)) list() else list(
-          background = pal(value),
-          color = text_color(value, max_abs)
-        )
-        c(base, list(
-          borderLeft = "2px solid #4D4D4D",
-          borderRight = "2px solid #4D4D4D"
-        ))
-      },
-      format = colFormat(digits = 2)
-    )
-  }
-  
-  ### TABLE ITSELF ###
-  
-  reactable(
-    anomaly_table,
-    striped = FALSE,
-    sortable = TRUE,
-    groupBy = "basin_name",
-    columns = c(
-      list(
-        huc8 = colDef(name = "HUC8", sticky = "left"),
-        basin_name = colDef(name = "Basin", sticky = "left"),
-        subbasin_name = colDef(name = "Subbasin", sticky = "left"),
-        Annual = anomaly_colDef_annual(annual_pal, annual_max_abs)
-      ),
-      setNames(
-        lapply(month_order, function(x) anomaly_colDef(month_pal, month_max_abs)),
-        month_order
-      )
-    ),
-    defaultColDef = colDef(align = "center"),
-    defaultPageSize = 14
-  )
-  
-  
-} else {
-  # static knitr::kable version
-  anomaly_table_pdf <- anomaly_table %>%
-    select(basin_name, subbasin_name, huc8, Annual, all_of(month_order))
-  
-  kable(anomaly_table_pdf,
-        col.names = c("Basin", "HUC8", "Subbasin", "Annual", month_order),
-        digits = 2,
-        caption = "Precipitation Anomalies by Subbasin, 2025 (inches)") %>%
-    kable_styling(latex_options = c("striped", "scale_down"),
-                  full_width = FALSE) %>%
-    collapse_rows(columns = 1, valign = "middle")
-}
-
-```
-
 
 
 ### Tropical Events  
