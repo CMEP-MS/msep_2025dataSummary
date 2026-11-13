@@ -124,7 +124,7 @@
     "href": "landuse_landcover.html#supporting-information",
     "title": "4  Land Use / Land Cover",
     "section": "4.2 Supporting Information",
-    "text": "4.2 Supporting Information",
+    "text": "4.2 Supporting Information\nData for this section comes from the National Land Cover Dataset, Collection 1.2, as processed into the {msepBaselineData} R package.\n\n4.2.1 Entire Watershed\n\n\n\n\nTable 4.1: Percent land cover across the entire Mississippi Sound Watershed by year and broad land cover category.\n\n\n\n\n\n\n\n\n\n\n\n\n4.2.2 By Basin\n\n\n\n\nTable 4.2: Percent land cover by basin, year, and broad land cover category. In the html version, click on a Basin to expand it to the categories.",
     "crumbs": [
       "People and Land Use",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Land Use / Land Cover</span>"

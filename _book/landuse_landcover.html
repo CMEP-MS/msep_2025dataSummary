@@ -74,6 +74,22 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+
+<script src="site_libs/react-18.2.0/react.min.js"></script>
+
+<script src="site_libs/react-18.2.0/react-dom.min.js"></script>
+
+<script src="site_libs/reactwidget-2.0.0/react-tools.js"></script>
+
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<link href="site_libs/reactable-0.4.5/reactable.css" rel="stylesheet">
+
+<script src="site_libs/reactable-binding-0.4.5/reactable.js"></script>
+
 
 
 <link rel="stylesheet" href="custom.css">
@@ -268,7 +284,11 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overall-summary" id="toc-overall-summary" class="nav-link active" data-scroll-target="#overall-summary"><span class="header-section-number">4.1</span> Overall Summary</a></li>
-  <li><a href="#supporting-information" id="toc-supporting-information" class="nav-link" data-scroll-target="#supporting-information"><span class="header-section-number">4.2</span> Supporting Information</a></li>
+  <li><a href="#supporting-information" id="toc-supporting-information" class="nav-link" data-scroll-target="#supporting-information"><span class="header-section-number">4.2</span> Supporting Information</a>
+  <ul class="collapse">
+  <li><a href="#entire-watershed" id="toc-entire-watershed" class="nav-link" data-scroll-target="#entire-watershed"><span class="header-section-number">4.2.1</span> Entire Watershed</a></li>
+  <li><a href="#by-basin" id="toc-by-basin" class="nav-link" data-scroll-target="#by-basin"><span class="header-section-number">4.2.2</span> By Basin</a></li>
+  </ul></li>
   <li><a href="#about" id="toc-about" class="nav-link" data-scroll-target="#about">About</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/CMEP-MS/msep_2025dataSummary/blob/main/landuse_landcover.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
@@ -302,6 +322,43 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="supporting-information" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="supporting-information"><span class="header-section-number">4.2</span> Supporting Information</h2>
+<p>Data for this section comes from the National Land Cover Dataset, Collection 1.2, as processed into the <a href="https://github.com/CMEP-MS/msepBaselineData"><code>{msepBaselineData}</code></a> R package.</p>
+<section id="entire-watershed" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="entire-watershed"><span class="header-section-number">4.2.1</span> Entire Watershed</h3>
+<div class="cell">
+<div id="tbl-lulcWatershed" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lulcWatershed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.1: Percent land cover across the entire Mississippi Sound Watershed by year and broad land cover category.
+</figcaption>
+<div aria-describedby="tbl-lulcWatershed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div class="reactable html-widget html-fill-item" id="htmlwidget-32fd94adda351d5bf45d" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-32fd94adda351d5bf45d">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Category":["Open Water","Developed","Barren","Forest","Shrub/Grassland","Agriculture","Wetlands"],"2005":[6.4,8.4,0.3,38.2,8.9,15.4,22.5],"2010":[6.4,8.7,0.3,38,9.5,14.8,22.3],"2015":[6.4,8.9,0.3,39.1,8.6,14.5,22.2],"2020":[6.4,9,0.3,38.9,8.8,14.3,22.1],"2025":[6.4,9.3,0.4,39.1,8.6,14.2,22]},"columns":[{"id":"Category","name":"Category","type":"character","format":{"cell":{},"aggregated":{}},"align":"left"},{"id":"2005","name":"2005","type":"numeric","format":{"cell":{"suffix":"%","digits":1},"aggregated":{"suffix":"%","digits":1}},"align":"right"},{"id":"2010","name":"2010","type":"numeric","format":{"cell":{"suffix":"%","digits":1},"aggregated":{"suffix":"%","digits":1}},"align":"right"},{"id":"2015","name":"2015","type":"numeric","format":{"cell":{"suffix":"%","digits":1},"aggregated":{"suffix":"%","digits":1}},"align":"right"},{"id":"2020","name":"2020","type":"numeric","format":{"cell":{"suffix":"%","digits":1},"aggregated":{"suffix":"%","digits":1}},"align":"right"},{"id":"2025","name":"2025","type":"numeric","format":{"cell":{"suffix":"%","digits":1},"aggregated":{"suffix":"%","digits":1}},"align":"right"}],"defaultPageSize":20,"striped":true,"dataKey":"db693c6eb9694296c07e30692e922d32"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="by-basin" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="by-basin"><span class="header-section-number">4.2.2</span> By Basin</h3>
+<div class="cell">
+<div id="tbl-lulcBasin" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lulcBasin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.2: Percent land cover by basin, year, and broad land cover category. In the html version, click on a Basin to expand it to the categories.
+</figcaption>
+<div aria-describedby="tbl-lulcBasin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div class="reactable html-widget html-fill-item" id="htmlwidget-bce9635f9c402ab77c1b" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-bce9635f9c402ab77c1b">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Basin":["Coastal Streams","Coastal Streams","Coastal Streams","Coastal Streams","Coastal Streams","Coastal Streams","Coastal Streams","Pascagoula","Pascagoula","Pascagoula","Pascagoula","Pascagoula","Pascagoula","Pascagoula","Pearl","Pearl","Pearl","Pearl","Pearl","Pearl","Pearl"],"Category":["Open Water","Developed","Barren","Forest","Shrub/Grassland","Agriculture","Wetlands","Open Water","Developed","Barren","Forest","Shrub/Grassland","Agriculture","Wetlands","Open Water","Developed","Barren","Forest","Shrub/Grassland","Agriculture","Wetlands"],"2005":[40.2,8.9,0.6,18.2,5,5.9,21.1,1,7.8,0.2,42.8,10.2,14.1,23.8,1.3,8.8,0.3,39.7,8.7,19.8,21.4],"2010":[40.2,9.6,0.7,16.7,6,5.8,21,1,8.1,0.2,42.8,10.5,13.7,23.7,1.3,9.1,0.3,39.5,9.5,19,21.3],"2015":[40.2,9.8,0.7,18.2,4.4,5.9,20.9,1,8.3,0.2,43.9,9.5,13.5,23.6,1.4,9.2,0.3,40.5,9,18.4,21.1],"2020":[40.2,10,0.7,18.9,3.4,5.8,20.9,1,8.4,0.2,43.8,9.6,13.4,23.5,1.4,9.4,0.3,40,9.7,18.1,21],"2025":[40.2,10.3,0.8,18.8,3.3,5.8,20.8,1,8.7,0.3,43.7,9.6,13.3,23.4,1.3,9.6,0.4,40.5,9.3,17.8,20.9]},"columns":[{"id":"Basin","name":"Basin","type":"character","format":{"cell":{},"aggregated":{}},"align":"left","style":{"fontWeight":"bold"}},{"id":"Category","name":"Category","type":"character","format":{"cell":{},"aggregated":{}},"align":"left"},{"id":"2005","name":"2005","type":"numeric","format":{"cell":{"suffix":"%","digits":1},"aggregated":{"suffix":"%","digits":1}},"align":"right"},{"id":"2010","name":"2010","type":"numeric","format":{"cell":{"suffix":"%","digits":1},"aggregated":{"suffix":"%","digits":1}},"align":"right"},{"id":"2015","name":"2015","type":"numeric","format":{"cell":{"suffix":"%","digits":1},"aggregated":{"suffix":"%","digits":1}},"align":"right"},{"id":"2020","name":"2020","type":"numeric","format":{"cell":{"suffix":"%","digits":1},"aggregated":{"suffix":"%","digits":1}},"align":"right"},{"id":"2025","name":"2025","type":"numeric","format":{"cell":{"suffix":"%","digits":1},"aggregated":{"suffix":"%","digits":1}},"align":"right"}],"groupBy":["Basin"],"defaultPageSize":25,"striped":true,"dataKey":"d340e768052dc8de118933df82f33593"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
 </section>
 <section id="about" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="about">About</h2>

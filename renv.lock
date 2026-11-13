@@ -3135,7 +3135,7 @@
     },
     "msepBaselineData": {
       "Package": "msepBaselineData",
-      "Version": "0.10.0",
+      "Version": "0.11.0",
       "Source": "GitHub",
       "Title": "Processed Historical Data from the MSEP Area",
       "Authors@R": "person(\"Kim\", \"Cressman\", , \"kc2741@msstate.edu\", role = c(\"aut\", \"cre\"))",
@@ -3177,7 +3177,7 @@
       "RemoteUsername": "CMEP-MS",
       "RemoteRepo": "msepBaselineData",
       "RemoteRef": "HEAD",
-      "RemoteSha": "5a1bbfa7136d47d6c1a67b6e498a50a6498847d5",
+      "RemoteSha": "6660b05e4ddb5b3871ad1ee615078bc9a8ba6b5c",
       "RemoteHost": "api.github.com"
     },
     "msepBoundaries": {

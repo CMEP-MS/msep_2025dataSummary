@@ -1,7 +1,20 @@
 # Land Use / Land Cover {#sec-LULC}  
 
 ```{r}
+library(msepBaselineData)
+library(dplyr)
+library(tidyr)
+library(reactable)
+```
 
+```{r}
+# render tables interactively or statically
+out_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+
+# if it's an interactive session, out_format will be NULL from the above command, so do things the html way
+if (is.null(out_format)) {
+  out_format <- "html"
+}
 ```
 
 
@@ -15,7 +28,116 @@ e.g. "The coastal counties of the watershed have become more developed in the la
 
 ## Supporting Information  
 
+Data for this section comes from the National Land Cover Dataset, Collection 1.2, as processed into the [`{msepBaselineData}`](https://github.com/CMEP-MS/msepBaselineData) R package.
 
+### Entire Watershed  
+
+```{r}
+lulc_watershed_table <- lulc_yearly_watershed |> 
+  summarize(.by = c(year, lulc_broad),
+            pixels = sum(pixel_count),
+            area_sqkm = sum(area_sqkm),
+            area_acres = sum(area_acres)) |> 
+  mutate(.by = year,
+         pct_cover = round(pixels / sum(pixels) * 100, 1))
+
+summary_wide_watershed <- lulc_watershed_table |> 
+  arrange(year) |> 
+  select(Category = lulc_broad, 
+         year, pct_cover) |> 
+  pivot_wider(names_from = year,
+              values_from = pct_cover,
+              values_fill = 0)
+  
+```
+
+```{r}
+#| label: tbl-lulcWatershed
+#| tbl-cap: "Percent land cover across the entire Mississippi Sound Watershed by year and broad land cover category."
+
+if (out_format == "html") {
+  #### reactable version
+  
+  reactable(summary_wide_watershed,
+            striped = TRUE,
+            sortable = TRUE,
+            defaultPageSize = 20,
+            defaultColDef = colDef(align = "right",
+                                   format = colFormat(digits = 1,
+                                                      suffix = "%")),
+            columns = list(Category = colDef(align = "left",
+                                             format = colFormat())))
+  
+} else {
+  #### static knitr::kable version (PDF)
+  
+  n_years <- ncol(summary_wide_watershed) - 1
+  
+  summary_wide_watershed |> 
+    mutate(across(-Category, ~ scales::percent(.x,
+                                               scale = 1,
+                                               accuracy = 0.1))) |> 
+    knitr::kable(align = paste0("l", strrep("r", n_years)))
+}
+```
+
+
+### By Basin  
+
+```{r}
+lulc_basin_table <- lulc_yearly_basin |> 
+  summarize(.by = c(year, basin_name, lulc_broad),
+            pixels = sum(pixel_count),
+            area_sqkm = sum(area_sqkm),
+            area_acres = sum(area_acres)) |> 
+  mutate(.by = c(year, basin_name),
+         pct_cover = round(pixels / sum(pixels) * 100, 1))
+
+summary_wide_basin <- lulc_basin_table |> 
+  arrange(basin_name, year) |> 
+  select(Basin = basin_name, 
+         Category = lulc_broad, 
+         year, pct_cover) |> 
+  pivot_wider(names_from = year,
+              values_from = pct_cover,
+              values_fill = 0)
+  
+```
+
+```{r}
+#| label: tbl-lulcBasin
+#| tbl-cap: "Percent land cover by basin, year, and broad land cover category. In the html version, click on a Basin to expand it to the categories."
+
+if (out_format == "html") {
+  #### reactable version
+  
+  reactable(summary_wide_basin,
+            striped = TRUE,
+            sortable = TRUE,
+            groupBy = "Basin",
+            defaultExpanded = FALSE,
+            defaultPageSize = 25,
+            defaultColDef = colDef(align = "right",
+                                   format = colFormat(digits = 1,
+                                                      suffix = "%")),
+            columns = list(Basin = colDef(align = "left",
+                                          format = colFormat(),
+                                          style = list(fontWeight = "bold")),
+                           Category = colDef(align = "left",
+                                             format = colFormat())))
+  
+} else {
+  #### static knitr::kable version (PDF)
+  
+  n_years <- ncol(summary_wide_basin) - 2
+  
+  summary_wide_basin |> 
+    mutate(across(-c(Basin, Category), ~ scales::percent(.x,
+                                                         scale = 1,
+                                                         accuracy = 0.1))) |> 
+    knitr::kable(align = paste0("ll", strrep("r", n_years)))
+}
+```
 
 
 ## About {.unnumbered}   
