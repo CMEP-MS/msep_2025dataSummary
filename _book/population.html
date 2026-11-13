@@ -74,6 +74,22 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+
+<script src="site_libs/react-18.2.0/react.min.js"></script>
+
+<script src="site_libs/react-18.2.0/react-dom.min.js"></script>
+
+<script src="site_libs/reactwidget-2.0.0/react-tools.js"></script>
+
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<link href="site_libs/reactable-0.4.5/reactable.css" rel="stylesheet">
+
+<script src="site_libs/reactable-binding-0.4.5/reactable.js"></script>
+
 
 
 <link rel="stylesheet" href="custom.css">
@@ -268,7 +284,11 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overall-summary" id="toc-overall-summary" class="nav-link active" data-scroll-target="#overall-summary"><span class="header-section-number">3.1</span> Overall Summary</a></li>
-  <li><a href="#supporting-information" id="toc-supporting-information" class="nav-link" data-scroll-target="#supporting-information"><span class="header-section-number">3.2</span> Supporting Information</a></li>
+  <li><a href="#supporting-information" id="toc-supporting-information" class="nav-link" data-scroll-target="#supporting-information"><span class="header-section-number">3.2</span> Supporting Information</a>
+  <ul class="collapse">
+  <li><a href="#regional-watershed-population" id="toc-regional-watershed-population" class="nav-link" data-scroll-target="#regional-watershed-population"><span class="header-section-number">3.2.1</span> Regional / Watershed Population</a></li>
+  <li><a href="#broken-down-by-subbasin-huc8" id="toc-broken-down-by-subbasin-huc8" class="nav-link" data-scroll-target="#broken-down-by-subbasin-huc8"><span class="header-section-number">3.2.2</span> Broken down by Subbasin (HUC8)</a></li>
+  </ul></li>
   <li><a href="#about" id="toc-about" class="nav-link" data-scroll-target="#about">About</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/CMEP-MS/msep_2025dataSummary/blob/main/population.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
@@ -297,12 +317,77 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overall-summary" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="overall-summary"><span class="header-section-number">3.1</span> Overall Summary</h2>
-<p><strong>Note: These summaries are NOT factual.</strong> They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.</p>
-<p>e.g.&nbsp;“Population has been steady in the watershed for the last 10 years”</p>
+<p>About 1.5 million Mississippians, half of the state’s population of 3 million, lived within the Mississippi Sound Watershed in 2020. The total population of the Mississippi Sound Watershed, which includes portions of Alabama and Louisiana, in 2020 was about 1.7 million. See <a href="#tbl-popRegions" class="quarto-xref">Table&nbsp;<span>3.1</span></a> for the breakdown.</p>
+<p>Population in the Mississippi Sound Watershed as a whole, within the MSEP Study Area (the portion of the MS Sound Watershed contained only within the state of Mississippi), and in the state of Mississippi itself was generally stable between 2010 and 2020 (see <a href="#tbl-popRegions" class="quarto-xref">Table&nbsp;<span>3.1</span></a>). Within the larger area, however, some subbasins had increases or decreases of up to 9% (see <a href="#tbl-popSubbasins" class="quarto-xref">Table&nbsp;<span>3.2</span></a>).</p>
 </section>
 <section id="supporting-information" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="supporting-information"><span class="header-section-number">3.2</span> Supporting Information</h2>
-<p>See population calculations in the <a href="https://github.com/CMEP-MS/msep_geospatialCharacterization">msep_geospatialCharacterization repository</a>, and repeat them for current year vs.&nbsp;5, 10, 20 years ago.</p>
+<p>The <a href="https://www.epa.gov/enviroatlas/data-download">EPA’s EnviroAtlas</a> provides gridded estimates of decadal US Census data for the years 2010 and 2020. These data were summarized for the region in the <a href="https://github.com/CMEP-MS/msepBaselineData"><code>{msepBaselineData}</code></a> R package and are presented here.</p>
+<section id="regional-watershed-population" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="regional-watershed-population"><span class="header-section-number">3.2.1</span> Regional / Watershed Population</h3>
+<div class="cell">
+<div id="tbl-popRegions" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-popRegions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.1: Population, in millions, of relevant areas, from decadal US Census values. The MSEP study area is the portion of the Mississippi Sound Watershed contained in the state of Mississippi. Percent change was calculated before rounding.
+</figcaption>
+<div aria-describedby="tbl-popRegions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Area</th>
+<th style="text-align: left;">2010</th>
+<th style="text-align: left;">2020</th>
+<th style="text-align: left;">Percent Change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Entire Mississippi Sound Watershed</td>
+<td style="text-align: left;">1.70</td>
+<td style="text-align: left;">1.72</td>
+<td style="text-align: left;">+1.1%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MSEP Study Area</td>
+<td style="text-align: left;">1.53</td>
+<td style="text-align: left;">1.54</td>
+<td style="text-align: left;">+0.8%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">State of MS</td>
+<td style="text-align: left;">2.97</td>
+<td style="text-align: left;">2.96</td>
+<td style="text-align: left;">-0.2%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="broken-down-by-subbasin-huc8" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="broken-down-by-subbasin-huc8"><span class="header-section-number">3.2.2</span> Broken down by Subbasin (HUC8)</h3>
+<p>In the html version of this document, this table is sortable by clicking on a column name.</p>
+<div class="cell">
+<div id="tbl-popSubbasins" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-popSubbasins-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.2: Population, rounded to the nearest thousand, of the Mississippi Sound Watershed by subbasin (HUC8) from decadal US Census values. Percent change was calculated before rounding. Numbers may not add up to exactly the values for the Entire Mississippi Sound Watershed due partially to rounding and partially to how grid cells along HUC8 boundaries were handled.
+</figcaption>
+<div aria-describedby="tbl-popSubbasins-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div class="reactable html-widget html-fill-item" id="htmlwidget-2bc40d06f317e1ee1999" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2bc40d06f317e1ee1999">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Basin":["Coastal Streams","Pascagoula River","Pascagoula River","Pascagoula River","Pascagoula River","Pascagoula River","Pascagoula River","Pascagoula River","Pascagoula River","Pearl River","Pearl River","Pearl River","Pearl River","Pearl River"],"Subbasin":["Mississippi Coastal","Chunky-Okatibbee","Upper Chickasawhay","Lower Chickasawhay","Upper Leaf","Lower Leaf","Pascagoula","Black","Escatawpa","Upper Pearl","Middle Pearl-Strong","Middle Pearl-Silver","Lower Pearl","Bogue Chitto"],"HUC8 ID":["03170009","03170001","03170002","03170003","03170004","03170005","03170006","03170007","03170008","03180001","03180002","03180003","03180004","03180005"],"2010":[338699.243131747,84914.7820779785,42642.5636139996,13941.8842427796,98620.5838398169,135293.762254809,53823.5674525629,59408.4005404373,100907.341155398,109331.268707943,405538.389536415,40900.693451351,139974.641956185,74274.7241066976],"2020":[368941.044534182,77844.4707592962,40238.5648067297,13665.6504724779,99473.9023436303,134848.445972975,53624.5061268061,64453.6070585254,107004.223562393,103101.429918557,404806.675040652,38187.0862254617,136453.330565796,73564.4155897809],"Percent Change":[0.089288069033774,-0.0832636102414957,-0.0563755694669525,-0.0198132308009084,0.00865253956718928,-0.0032914768161668,-0.00369840453129178,0.0849241264230623,0.0604206030719435,-0.0569813088516167,-0.00180430389487676,-0.0663462400488888,-0.0251567808367094,-0.0095632602538689]},"columns":[{"id":"Basin","name":"Basin","type":"character","style":{"fontWeight":"bold"}},{"id":"Subbasin","name":"Subbasin","type":"character"},{"id":"HUC8 ID","name":"HUC8 ID","type":"character"},{"id":"2010","name":"2010","type":"numeric","cell":["339,000","85,000","43,000","14,000","99,000","135,000","54,000","59,000","101,000","109,000","406,000","41,000","140,000","74,000"],"align":"right"},{"id":"2020","name":"2020","type":"numeric","cell":["369,000","78,000","40,000","14,000","99,000","135,000","54,000","64,000","107,000","103,000","405,000","38,000","136,000","74,000"],"align":"right"},{"id":"Percent Change","name":"Percent Change","type":"numeric","cell":["+8.9%","-8.3%","-5.6%","-2.0%","+0.9%","-0.3%","-0.4%","+8.5%","+6.0%","-5.7%","-0.2%","-6.6%","-2.5%","-1.0%"],"align":"right"}],"groupBy":["Basin"],"defaultPageSize":20,"defaultExpanded":true,"striped":true,"dataKey":"a00b11268bdf372920e70ca54fc21fa4"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
 </section>
 <section id="about" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="about">About</h2>

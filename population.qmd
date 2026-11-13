@@ -1,21 +1,115 @@
 # Population {#sec-population}  
 
 ```{r}
-
+library(msepBaselineData)
+library(dplyr)
+library(tidyr)
+library(reactable)
 ```
 
 
+```{r}
+# render the huc8 table interactively or statically
+out_format <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+
+# if it's an interactive session, out_format will be NULL from the above command, so do things the html way
+if(is.null(out_format)){
+  out_format <- "html"
+}
+```
+
 ## Overall Summary  
 
-**Note: These summaries are NOT factual.** They are examples of how we might want to talk about what we find, to help ensure we do calculations in the right way. I am completely making up details and could be very, very wrong. Please do not treat this information as factual.    
+About 1.5 million Mississippians, half of the state's population of 3 million, lived within the Mississippi Sound Watershed in 2020. The total population of the Mississippi Sound Watershed, which includes portions of Alabama and Louisiana, in 2020 was about 1.7 million. See @tbl-popRegions for the breakdown.    
 
-
-e.g. "Population has been steady in the watershed for the last 10 years"  
+Population in the Mississippi Sound Watershed as a whole, within the MSEP Study Area (the portion of the MS Sound Watershed contained only within the state of Mississippi), and in the state of Mississippi itself was generally stable between 2010 and 2020 (see @tbl-popRegions). Within the larger area, however, some subbasins had increases or decreases of up to 9% (see @tbl-popSubbasins).    
 
 
 ## Supporting Information  
 
-See population calculations in the [msep_geospatialCharacterization repository](https://github.com/CMEP-MS/msep_geospatialCharacterization), and repeat them for current year vs. 5, 10, 20 years ago.  
+The [EPA's EnviroAtlas](https://www.epa.gov/enviroatlas/data-download) provides gridded estimates of decadal US Census data for the years 2010 and 2020. These data were summarized for the region in the [`{msepBaselineData}`](https://github.com/CMEP-MS/msepBaselineData) R package and are presented here.  
+
+### Regional / Watershed Population  
+
+```{r}
+#| label: tbl-popRegions
+#| tbl-cap: "Population, in millions, of relevant areas, from decadal US Census values. The MSEP study area is the portion of the Mississippi Sound Watershed contained in the state of Mississippi. Percent change was calculated before rounding."
+
+population_regional |> 
+  select(-population_millions) |> 
+  mutate(area_name = case_when(area_name == "MS portion of MS Sound Watershed" ~ "MSEP Study Area",
+                               area_name == "MS Sound Watershed" ~ "Entire Mississippi Sound Watershed",
+                               .default = area_name)) |> 
+  rename(Area = area_name) |> 
+  pivot_wider(names_from = year,
+              values_from = population) |>
+  mutate(`Percent Change` = scales::percent((`2020` - `2010`) / `2010`,
+                                            accuracy = 0.1,
+                                            style_positive = "plus"),
+         across(c(`2010`, `2020`), ~ scales::number(.x, scale = 1e-6, accuracy = 0.01))) |> 
+  knitr::kable()
+```
+
+### Broken down by Subbasin (HUC8)  
+
+In the html version of this document, this table is sortable by clicking on a column name.  
+
+```{r}
+#| label: tbl-popSubbasins
+#| tbl-cap: "Population, rounded to the nearest thousand, of the Mississippi Sound Watershed by subbasin (HUC8) from decadal US Census values. Percent change was calculated before rounding. Numbers may not add up to exactly the values for the Entire Mississippi Sound Watershed due partially to rounding and partially to how grid cells along HUC8 boundaries were handled."
+
+# 1. Prepare shared data with true numeric columns for accurate sorting
+pop_subbasins_tbl <- population_huc8 |> 
+  select(Basin = basin_name, 
+         Subbasin = subbasin_name, 
+         `HUC8 ID` = huc8, 
+         year, population) |> 
+  pivot_wider(names_from = year,
+              values_from = population) |> 
+  mutate(`Percent Change` = (`2020` - `2010`) / `2010`)
+
+if (out_format == "html") {
+  #### reactable version
+  
+  # Helper to round to nearest 1,000 and add commas for display while keeping numeric sort
+  fmt_thousands <- function(value) {
+    if (is.na(value)) return("")
+    scales::comma(value, accuracy = 1000)
+  }
+  
+  reactable(pop_subbasins_tbl,
+            striped = TRUE,
+            sortable = TRUE,
+            groupBy = "Basin",
+            defaultExpanded = TRUE,
+            defaultPageSize = 20,
+            columns = list(Basin = colDef(style = list(fontWeight = "bold")),
+                           `2010` = colDef(align = "right",
+                                           cell = fmt_thousands),
+                           `2020` = colDef(align = "right",
+                                           cell = fmt_thousands),
+                           `Percent Change` = colDef(align = "right",
+                                                     cell = function(value) {
+                                                       if (is.na(value)) return("")
+                                                       scales::percent(value,
+                                                                       accuracy = 0.1,
+                                                                       style_positive = "plus")
+                                                     })))
+  
+} else {
+  #### static knitr::kable version (PDF)
+  
+  pop_subbasins_tbl |> 
+    mutate(`Percent Change` = scales::percent(`Percent Change`,
+                                              accuracy = 0.1,
+                                              style_positive = "plus")) |> 
+    knitr::kable(digits = -3,
+                 format.args = list(big.mark = ","),
+                 align = "lllrrr")
+}
+
+```
+
 
 
 ## About {.unnumbered}   
