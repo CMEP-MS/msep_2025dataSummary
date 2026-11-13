@@ -5,6 +5,11 @@ library(msepBaselineData)
 library(dplyr)
 library(tidyr)
 library(reactable)
+library(msepBoundaries)
+library(sf)
+library(mseptools)
+library(tmap)
+
 ```
 
 
@@ -109,6 +114,106 @@ if (out_format == "html") {
 }
 
 ```
+
+
+### Maps of pop and change by subbasin  
+
+Population densities are calculated based on land area in each subbasin (i.e. the area of the Mississippi Sound is not included in calculations for the Coastal Streams Basin).  
+
+For file size purposes, the precision of the outlines in these maps has been reduced. That reduction was performed after calculating densities and change.  
+
+```{r}
+# join to huc8 sf object from msepBoundaries
+pop_tomap <- pop_subbasins_tbl |> 
+  left_join(subbasins_land,
+            by = c(`HUC8 ID` = "huc8",
+                   "Subbasin" = "name")) |> 
+  rename(Population_2010 = `2010`,
+         Population_2020 = `2020`) |> 
+  mutate(`Percent Change` = round(`Percent Change` * 100, 1),
+         area = st_area(geometry),
+         area_sqmiles = as.numeric(units::set_units(area, "mi2")),
+         Population_Density_2020 = round(Population_2020 / area_sqmiles, 1)) |> 
+  select(-area) |> 
+  st_as_sf() |> 
+  st_simplify(dTolerance = 50, preserveTopology = TRUE)
+
+
+# calculate area of each huc8, and thus population density
+# make map of density, and make map of change
+# then display the maps side-by-side
+```
+
+
+```{r}
+# population density
+
+# make map in plot mode so it stays a tmap object and
+# can be used in tmap_arrange to be displayed with other maps
+
+tmap_mode("plot")
+
+m3 <- tm_shape(pop_tomap) +
+  tm_basemap() +
+  tm_polygons(fill = "Population_Density_2020",
+              fill.scale = tm_scale(values = "brewer.or_rd"),
+              fill_alpha = 0.8,
+              fill.free = FALSE,  # make the colors the same in every facet
+              fill.legend = tm_legend(title = "People / sq mi",
+                                      position = tm_pos_out("right")),
+              col = "black",  # polygon outline color
+              lwd = 2) 
+
+m3b <- tmap_hydro(m3)
+```
+
+```{r}
+# make anomaly maps in plot mode
+
+# set limits for color scale
+# from the data:
+# max_abs <- max(abs(as.data.frame(pop_tomap)$`Percent Change`), na.rm = TRUE)
+# max_pct <- max(abs(as.data.frame(pop_tomap)$`Percent Change`), na.rm = TRUE)
+
+# arbitrary:
+max_pct <- 100 
+
+tmap_mode("plot")
+
+# precip as % of normal
+m41 <- tm_shape(pop_tomap) +
+  tm_basemap() +
+  tm_polygons(fill = "Percent Change",
+              fill.scale = tm_scale(values = "brewer.br_bg",
+                                     midpoint = 0,
+                                     limits = c(-max_pct, max_pct),
+                                    label.format = list(fun = function(x) sprintf("%+g%%", x), digits = 0, text.separator = "to")),
+              fill_alpha = 0.8,
+              fill.free = FALSE,
+              fill.legend = tm_legend(title = "% Change, \n2010-2020",
+                                      position = tm_pos_out("right")),
+              col = "black",
+              lwd = 2) 
+
+m41b <- tmap_hydro(m41)
+```
+
+```{r}
+#| label: fig-mapPopSubbasins
+#| fig-cap: "Maps of Population: Density (people per square mile; left), and Change between 2010 and 2020 (right). Color scales are automatic based on data so while darker colors on the right map do represent larger changes than others in the dataset, they still may be relatively small."
+
+# allow this one to be interactive
+if (out_format == "html") {
+  message("Setting tmap mode to 'view'")
+  tmap_mode("view")
+} else {
+  message("Setting tmap mode to 'plot'")
+  tmap_mode("plot")
+}
+
+tmap_arrange(m3b, m41b, sync = TRUE)
+```
+
 
 
 

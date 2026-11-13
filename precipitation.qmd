@@ -79,7 +79,8 @@ Annual totals were calculated from monthly precipitation data obtained from the 
 # make a spat vector of huc8s for summaries
 huc8_vect <- vect(subbasins_full)
 prcp_huc8_avg.ann <- extract(prcp_annual_in, huc8_vect, fun = mean, na.rm = TRUE, bind = TRUE) |> 
-  st_as_sf()
+  st_as_sf() |> 
+  st_simplify(dTolerance = 50, preserveTopology = TRUE)
 ```
 
 ```{r}
@@ -395,12 +396,14 @@ Monthly data are from the PRISM Group at Oregon State University, https://prism.
 ```{r}
 # make a spat vector of huc8s for summaries
 huc8_vect <- vect(subbasins_full)
-prcp_huc8_avg <- extract(prcp_monthly_in, huc8_vect, fun = mean, na.rm = TRUE, bind = TRUE)
+prcp_huc8_avg <- extract(prcp_monthly_in, huc8_vect, fun = mean, na.rm = TRUE, bind = TRUE) |> 
+  st_as_sf() |> 
+  st_simplify(dTolerance = 50, preserveTopology = TRUE)
 ```
 
 ```{r}
 month_cols <- names(prcp_huc8_avg)
-month_cols <- month_cols[!(month_cols %in% c("huc8", "name"))]  # drop the ID column, keep only month value columns
+month_cols <- month_cols[!(month_cols %in% c("huc8", "name", "geometry"))]  # drop the ID column, keep only month value columns
 ```
 
 ```{r}
@@ -472,7 +475,7 @@ prcp_anomaly_sv <- terra::merge(prcp_huc8_avg[, "huc8"], anomalies_wide, by = "h
 #| fig-cap: "Map of monthly precipitation difference from normal, as a percent (i.e. '-10' can be read as '10% below normal'), averaged to the HUC-8 (subbasin) level."
 
 month_cols <- names(prcp_anomaly_sv)
-month_cols <- month_cols[!(month_cols %in% c("huc8", "basin_name", "subbasin_name"))]
+month_cols <- month_cols[!(month_cols %in% c("huc8", "basin_name", "subbasin_name", "geometry"))]
 
 # make the scale symmetric around 0 so the diverging midpoint is meaningful
 max_abs <- max(abs(as.data.frame(prcp_anomaly_sv)[, month_cols]), na.rm = TRUE)
